@@ -1,4 +1,3 @@
-
 class Node:
 
     def __init__(self, key: int, geolocation: tuple = (0, 0, 0)):
@@ -8,15 +7,15 @@ class Node:
         self.tag = 0
         self.outEdges = {}
         self.inEdges = {}
+
     def __repr__(self):
         return "{}".format(self.key)
+
     def __str__(self):
         return "{}".format(self.key)
 
-    def addOutEdge(self, weight: float, Dest: int):
+    def add_out_edge(self, weight: float, dest: int):
+        self.outEdges[dest] = weight
 
-        self.outEdges[Dest] = weight
-
-    def addinEdge(self, weight: float, Src: int):
-
-        self.inEdges[Src] = weight
+    def adding_edge(self, weight: float, src: int):
+        self.inEdges[src] = weight

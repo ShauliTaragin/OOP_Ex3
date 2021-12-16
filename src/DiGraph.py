@@ -11,20 +11,19 @@ class DiGraph(GraphInterface):
         self._mc = 0
         if jsonfile is not None:
             with open(jsonfile,'r') as jsonFile:
-                jsonObject = json.load(jsonFile)
+                json_object = json.load(jsonFile)
                 jsonFile.close()
-            edgesJson = jsonObject['Edges']
-            nodesJson = jsonObject['Nodes']
-            for nodeIter in nodesJson:
-                temp_Tuple=(nodeIter['pos'][0],nodeIter['pos'][1],nodeIter['pos'][2])
-                self.add_node(int(nodeIter['id']),temp_Tuple)
-            for edgeIter in edgesJson:
-                src = int(edgeIter['src'])
-                weight = float(edgeIter['w'])
-                dest = int(edgeIter['dest'])
-                self.add_edge(src,dest,weight)
-
-
+            edges_json = json_object['Edges']
+            nodes_json = json_object['Nodes']
+            for nodeIter in nodes_json:
+                location=str(nodeIter['pos']).split(',')
+                pos_tuple = (float(location[0]), float(location[1]), float(location[2]))
+                self.add_node(nodeIter['id'], pos_tuple)
+            for edgeIter in edges_json:
+                src = edgeIter['src']
+                weight = edgeIter['w']
+                dest = edgeIter['dest']
+                self.add_edge(src, dest, weight)
 
     def v_size(self) -> int:
         return len(self._nodes)

@@ -29,7 +29,7 @@ def check0():
     :return:
     """
     g = DiGraph()  # creates an empty directed graph
-    g2 = DiGraph("C:/Users/shaul/PycharmProjects/OOP_Ex3/data/A0.json")
+    g2 = DiGraph("/Users/idobar/Bsc/Year 2/OOP/OOP_Ex3/data/A0.json")
     for n in range(4):
         g.add_node(n)
     g.add_edge(0, 1, 1)
