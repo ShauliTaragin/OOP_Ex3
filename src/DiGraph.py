@@ -1,5 +1,6 @@
 from GraphInterface import GraphInterface
 from Node import Node
+import json
 
 
 class DiGraph(GraphInterface):
@@ -8,6 +9,22 @@ class DiGraph(GraphInterface):
         self._nodes = {}
         self._numOfEdges = 0
         self._mc = 0
+        if jsonfile is not None:
+            with open(jsonfile,'r') as jsonFile:
+                jsonObject = json.load(jsonFile)
+                jsonFile.close()
+            edgesJson = jsonObject['Edges']
+            nodesJson = jsonObject['Nodes']
+            for nodeIter in nodesJson:
+                temp_Tuple=(nodeIter['pos'][0],nodeIter['pos'][1],nodeIter['pos'][2])
+                self.add_node(int(nodeIter['id']),temp_Tuple)
+            for edgeIter in edgesJson:
+                src = int(edgeIter['src'])
+                weight = float(edgeIter['w'])
+                dest = int(edgeIter['dest'])
+                self.add_edge(src,dest,weight)
+
+
 
     def v_size(self) -> int:
         return len(self._nodes)
