@@ -4,46 +4,54 @@ from Node import Node
 
 class DiGraph(GraphInterface):
 
-    def __init__(self, jsonfile: str):
+    def __init__(self, jsonfile: str = None):
         self._nodes = {}
         self._numOfEdges = 0
         self._mc = 0
 
     def v_size(self) -> int:
+        return len(self._nodes)
         """
         Returns the number of vertices in this graph
         @return: The number of vertices in this graph
         """
 
     def e_size(self) -> int:
+        return self._numOfEdges
         """
         Returns the number of edges in this graph
         @return: The number of edges in this graph
         """
 
     def get_all_v(self) -> dict:
+        return self._nodes
         """return a dictionary of all the nodes in the Graph, each node is represented using a pair
          (node_id, node_data)
         """
 
     def all_in_edges_of_node(self, id1: int) -> dict:
-        node = Node(self._nodes.get(id1))
+        if id1 not in self._nodes:
+            return {}
+        node = self._nodes.get(id1)
         ans_dict = {}
         for x in node.inEdges.keys():
-            node_temp = Node(self._nodes.get(x))
+            node_temp = self._nodes.get(x)
             ans_dict[x] = node_temp.weight
         return ans_dict
-        """return a dictionary of all the nodes connected to (into) node_id ,
-        each node is represented using a pair (other_node_id, weight)
-         """
+
+    """return a dictionary of all the nodes connected to (into) node_id ,
+                    each node is represented using a pair (other_node_id, weight)
+                     """
 
     def all_out_edges_of_node(self, id1: int) -> dict:
-        node = Node(self._nodes.get(id1))
-        ans_dict = {}
-        for x in node.outEdges.keys():
-            node_temp = Node(self._nodes.get(x))
-            ans_dict[x] = node_temp.weight
-        return ans_dict
+        if id1 in self._nodes:
+            node = self._nodes.get(id1)
+            ans_dict = {}
+            for x in node.outEdges.keys():
+                node_temp = self._nodes.get(x)
+                ans_dict[x] = node_temp.weight
+            return ans_dict
+        return {}
         """return a dictionary of all the nodes connected from node_id , each node is represented using a pair
         (other_node_id, weight)
         """
@@ -57,14 +65,15 @@ class DiGraph(GraphInterface):
         """
 
     def add_edge(self, id1: int, id2: int, weight: float) -> bool:
-        node_src = Node(self._nodes.get(id1))
-        nodeDst = Node(self._nodes.get(id2))
-        if (node_src or nodeDst or node_src.outEdges[id2]) is None:
+        node_src = self._nodes.get(id1)
+        node_dst = self._nodes.get(id2)
+        if (node_src or node_dst or node_src.outEdges[id2]) is None:
             return False
         else:
             node_src.outEdges[id2] = weight
-            nodeDst.inEdges[id1] = weight
+            node_dst.inEdges[id1] = weight
             self._mc += 1
+            self._numOfEdges += 1
             return True
 
         """
@@ -77,7 +86,7 @@ class DiGraph(GraphInterface):
         """
 
     def add_node(self, node_id: int, pos: tuple = None) -> bool:
-        node_src = Node(self._nodes.get(node_id))
+        node_src = self._nodes.get(node_id)
         if node_src is not None:
             return False
         else:
@@ -109,14 +118,15 @@ class DiGraph(GraphInterface):
         """
 
     def remove_edge(self, node_id1: int, node_id2: int) -> bool:
-        node = Node(self._nodes.get(node_id1))
-        node2 = Node(self._nodes.get(node_id2))
+        node = self._nodes.get(node_id1)
+        node2 = self._nodes.get(node_id2)
         if (node or node2) is None:
             return False
         else:
             node.outEdges.pop(node_id2)
             node2.inEdges.pop(node_id1)
             self._mc += 1
+            self._numOfEdges -= 1
             return True
 
         """

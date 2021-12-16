@@ -1,18 +1,17 @@
-import GeoLocation
-
 
 class Node:
 
-    def __init__(self, key: int, geolocation: GeoLocation):
+    def __init__(self, key: int, geolocation: tuple = (0, 0, 0)):
         self.key = key
         self.weight = 0
         self.geolocation = geolocation
         self.tag = 0
         self.outEdges = {}
         self.inEdges = {}
-
+    def __repr__(self):
+        return "{}".format(self.key)
     def __str__(self):
-        return self.key
+        return "{}".format(self.key)
 
     def addOutEdge(self, weight: float, Dest: int):
 
