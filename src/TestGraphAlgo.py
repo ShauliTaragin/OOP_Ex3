@@ -43,9 +43,9 @@ class TestGraphAlgo(TestCase):
         # g.add_edge(1, 3, 1.9)
         # g.remove_edge(1, 3)
         # g.add_edge(1, 3, 10)
-        g_algo = GraphAlgo(g2)
-        g1=MinHeapDijkstra.DijkstraUsingMinHeap.Graph(g_algo)
-        g1.dijkstra_GetMinDistances(0)
+        # g_algo = GraphAlgo(g2)
+        # g1=MinHeapDijkstra.DijkstraUsingMinHeap.Graph(g_algo)
+        # g1.dijkstra_GetMinDistances(0)
         max1=sys.maxsize
         index=0
         g_algo = GraphAlgo(g2)
