@@ -62,10 +62,10 @@ class MinHeap:
         right_child_node: Node = self.node_holder.get(rightChildIdx)
         if (leftChildIdx < self.heap_size and smallest_node.weight > left_child_node.weight):
             smallest = leftChildIdx
-            smallest_node: Node = self.node_holder.get(left_child_node)
+            smallest_node: Node = self.node_holder.get(leftChildIdx)
         if (rightChildIdx < self.heap_size and smallest_node.weight > right_child_node.weight):
             smallest = rightChildIdx
-            smallest_node: Node = self.node_holder.get(left_child_node)
+            smallest_node: Node = self.node_holder.get(rightChildIdx)
         if (smallest != k):
             smallestNode: Node = self.node_holder[smallest]
             kNode: Node = self.node_holder[k]

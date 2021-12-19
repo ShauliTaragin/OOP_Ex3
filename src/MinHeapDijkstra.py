@@ -17,6 +17,9 @@ class DijkstraUsingMinHeap:
         def dijkstra_GetMinDistances(self, source_vertex: int, dest:int =None):
             self.max = 0
             INFINITY = sys.maxsize
+            self.parents.clear()
+            self.heap_nodes.clear()
+            self.extracted.clear()
             # for node in self.graph.nodes.keys():
             #
             self.parents[source_vertex] = source_vertex
@@ -51,7 +54,11 @@ class DijkstraUsingMinHeap:
                             self.heap_nodes[destination] = newDest
                             # //switch the previous parent of the destination
                             self.parents[destination] = extractedNodeKey
+
                 # // the last Node to be extracted is the one with the biggest weight
+            # for i in self.heap_nodes.keys():
+            #    if( self.max<self.heap_nodes.get(i)):
+            #        self.max=self.heap_nodes.get(i)
             self.max = minHeap.node_holder[0].weight
 
         def decreaseKey(self, minHeap: MinHeap, newKey, vertex: int):
