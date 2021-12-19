@@ -160,3 +160,6 @@ class DiGraph(GraphInterface):
         """
     def __repr__(self):
         return "Graph: |V|={} , |E|={}".format(len(self.nodes),self._numOfEdges)
+    # def clone(self):
+
+
