@@ -48,26 +48,16 @@ class DiGraph(GraphInterface):
     def all_in_edges_of_node(self, id1: int) -> dict:
         if id1 not in self._nodes:
             return {}
-        node = self._nodes.get(id1)
-        ans_dict = {}
-        for x in node.inEdges.keys():
-            node_temp = self._nodes.get(x)
-            ans_dict[x] = node_temp.weight
-        return ans_dict
+        return self._nodes[id1].inEdges
 
     """return a dictionary of all the nodes connected to (into) node_id ,
                     each node is represented using a pair (other_node_id, weight)
                      """
 
     def all_out_edges_of_node(self, id1: int) -> dict:
-        if id1 in self._nodes:
-            node = self._nodes.get(id1)
-            ans_dict = {}
-            for x in node.outEdges.keys():
-                node_temp = self._nodes.get(x)
-                ans_dict[x] = node_temp.weight
-            return ans_dict
-        return {}
+        if id1 not in self._nodes:
+            return {}
+        return self._nodes[id1].outEdges
         """return a dictionary of all the nodes connected from node_id , each node is represented using a pair
         (other_node_id, weight)
         """
@@ -152,3 +142,5 @@ class DiGraph(GraphInterface):
         @return: True if the edge was removed successfully, False o.w.
         Note: If such an edge does not exists the function will do nothing
         """
+    def __repr__(self):
+        return "Graph: |V|={} , |E|={}".format(len(self._nodes),self._numOfEdges)
