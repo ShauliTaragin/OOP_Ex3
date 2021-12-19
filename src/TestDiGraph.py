@@ -81,23 +81,23 @@ class TestDiGraph(TestCase):
 
     def test_add_node(self):
         graph = DiGraph("../data/A0.json")
-        self.assertEqual(None, graph._nodes.get(27))
+        self.assertEqual(None, graph.nodes.get(27))
         self.assertTrue(graph.add_node(27, (35.16262, 26.2626, 0)))
-        self.assertEqual("27: |edges out| {} |edges in| {}", graph._nodes.get(27).__str__())
+        self.assertEqual("27: |edges out| {} |edges in| {}", graph.nodes.get(27).__str__())
 
     def test_remove_node(self):
         graph = DiGraph("../data/A0.json")
         self.assertEqual(
             "0: |edges out| {1: 1.4004465106761335, 10: 1.4620268165085584} |edges in| {1: 1.8884659521433524, "
             "10: 1.1761238717867548}",
-            graph._nodes.get(0).__str__())
+            graph.nodes.get(0).__str__())
         self.assertTrue(graph.remove_node(0))
-        self.assertIsNone(graph._nodes.get(0))
+        self.assertIsNone(graph.nodes.get(0))
         self.assertEqual({}, graph.all_out_edges_of_node(0))
         graph1 = DiGraph("../data/A1.json")
         self.assertEqual(
             "2: |edges out| {1: 1.7155926739282625, 3: 1.1435447583365383} |edges in| {1: 1.7646903245689283, 3: 1.0980094622804095}",
-            graph._nodes.get(2).__str__())
+            graph.nodes.get(2).__str__())
         self.assertTrue(graph1.remove_node(0))
         self.assertFalse(graph1.remove_node(250))
         # self.assertEqual("{0: 1.3118716362419698, 15: 1.8726071511162605}", graph1.all_in_edges_of_node(16)._str_())

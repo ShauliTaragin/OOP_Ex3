@@ -6,7 +6,7 @@ import json
 class DiGraph(GraphInterface):
 
     def __init__(self, jsonfile: str = None):
-        self._nodes = {}
+        self.nodes = {}
         self._numOfEdges = 0
         self._mc = 0
         if jsonfile is not None:
@@ -26,7 +26,7 @@ class DiGraph(GraphInterface):
                 self.add_edge(src, dest, weight)
 
     def v_size(self) -> int:
-        return len(self._nodes)
+        return len(self.nodes)
         """
         Returns the number of vertices in this graph
         @return: The number of vertices in this graph
@@ -40,23 +40,23 @@ class DiGraph(GraphInterface):
         """
 
     def get_all_v(self) -> dict:
-        return self._nodes
+        return self.nodes
         """return a dictionary of all the nodes in the Graph, each node is represented using a pair
          (node_id, node_data)
         """
 
     def all_in_edges_of_node(self, id1: int) -> dict:
-        if id1 not in self._nodes:
+        if id1 not in self.nodes:
             return {}
-        return self._nodes[id1].inEdges
+        return self.nodes[id1].inEdges
     """return a dictionary of all the nodes connected to (into) node_id ,
                     each node is represented using a pair (other_node_id, weight)
                      """
 
     def all_out_edges_of_node(self, id1: int) -> dict:
-        if id1 not in self._nodes:
+        if id1 not in self.nodes:
             return {}
-        return self._nodes[id1].outEdges
+        return self.nodes[id1].outEdges
         """return a dictionary of all the nodes connected from node_id , each node is represented using a pair
         (other_node_id, weight)
         """
@@ -70,8 +70,8 @@ class DiGraph(GraphInterface):
         """
 
     def add_edge(self, id1: int, id2: int, weight: float) -> bool:
-        node_src = self._nodes.get(id1)
-        node_dst = self._nodes.get(id2)
+        node_src = self.nodes.get(id1)
+        node_dst = self.nodes.get(id2)
         if (node_src or node_dst or node_src.outEdges[id2]) is None:
             return False
         else:
@@ -90,12 +90,12 @@ class DiGraph(GraphInterface):
         """
 
     def add_node(self, node_id: int, pos: tuple = None) -> bool:
-        node_src = self._nodes.get(node_id)
+        node_src = self.nodes.get(node_id)
         if node_src is not None:
             return False
         else:
             node_src = Node(node_id, pos)
-            self._nodes[node_id] = node_src
+            self.nodes[node_id] = node_src
             self._mc += 1
             return True
         """
@@ -107,16 +107,16 @@ class DiGraph(GraphInterface):
         """
 
     def remove_node(self, node_id: int) -> bool:
-        if self._nodes.get(node_id) is None:
+        if self.nodes.get(node_id) is None:
             return False
         else:
-            out_edges = self._nodes[node_id].outEdges.copy()
-            in_edges = self._nodes[node_id].inEdges.copy()
+            out_edges = self.nodes[node_id].outEdges.copy()
+            in_edges = self.nodes[node_id].inEdges.copy()
             for node_key in out_edges.keys():
                 self.remove_edge(node_id,node_key)
             for node_key in in_edges.keys():
                 self.remove_edge(node_key,node_id)
-            self._nodes.pop(node_id)
+            self.nodes.pop(node_id)
             self._mc += 1
             return True
 
@@ -128,8 +128,8 @@ class DiGraph(GraphInterface):
         """
 
     def remove_edge(self, node_id1: int, node_id2: int) -> bool:
-        node = self._nodes.get(node_id1)
-        node2 = self._nodes.get(node_id2)
+        node = self.nodes.get(node_id1)
+        node2 = self.nodes.get(node_id2)
         if node is None:
             return False
         if node2 is None:
@@ -159,4 +159,4 @@ class DiGraph(GraphInterface):
         Note: If such an edge does not exists the function will do nothing
         """
     def __repr__(self):
-        return "Graph: |V|={} , |E|={}".format(len(self._nodes),self._numOfEdges)
+        return "Graph: |V|={} , |E|={}".format(len(self.nodes),self._numOfEdges)
