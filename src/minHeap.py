@@ -35,14 +35,10 @@ class MinHeap:
         currentIdx = pos
         # parent_node: Node = self.node_holder.get(parentIdx)
         # current_node: Node = self.node_holder.get(currentIdx)
-        parent_node: Node = self.node_holder1[parentIdx]
-        current_node: Node = self.node_holder1[currentIdx]
-        while (currentIdx > 0 and parent_node.weight > current_node.weight):
-            parent_node: Node = self.node_holder1[parentIdx]
-            current_node: Node = self.node_holder1[currentIdx]
+        while (currentIdx > 0 and self.node_holder1[parentIdx].weight >self.node_holder1[currentIdx].weight):
             # //swap the positions
-            self.index_of_nodes1[current_node.key] = parentIdx
-            self.index_of_nodes1[parent_node.key] = currentIdx
+            self.index_of_nodes1[self.node_holder1[currentIdx].key] = parentIdx
+            self.index_of_nodes1[self.node_holder1[parentIdx].key] = currentIdx
             self.swap(currentIdx, parentIdx)
             currentIdx = parentIdx
             parentIdx = int(parentIdx / 2)
