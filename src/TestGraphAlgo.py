@@ -1,9 +1,9 @@
 import sys
 from unittest import TestCase
 
-import MinHeapDijkstra
 from DiGraph import DiGraph
 from GraphAlgo import GraphAlgo
+from MinHeapDijkstra import DijkstraUsingMinHeap
 
 
 class TestGraphAlgo(TestCase):
@@ -49,7 +49,7 @@ class TestGraphAlgo(TestCase):
         max1=sys.maxsize
         index=0
         g_algo = GraphAlgo(g2)
-        g1 = MinHeapDijkstra.DijkstraUsingMinHeap.Graph(g_algo)
+        g1 = DijkstraUsingMinHeap.Graph(g_algo)
         for i in g2.nodes.keys():
             g1.dijkstra_GetMinDistances(i)
             if(g1.max<max1):
@@ -60,7 +60,7 @@ class TestGraphAlgo(TestCase):
     def test_tsp(self):
         self.fail()
     def test_center_point(self):
-        g2 = DiGraph("../data/1000Nodes.json")
+        g2 = DiGraph("../data/G3.json")
         g_algo=GraphAlgo(g2)
         print(g_algo.centerPoint())
     def test_plot_graph(self):
