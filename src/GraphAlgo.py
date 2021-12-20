@@ -12,7 +12,7 @@ from src.GraphInterface import GraphInterface
 
 
 class GraphAlgo(GraphAlgoInterface, ABC):
-    def __init__(self, graph:DiGraph = None):
+    def __init__(self, graph: DiGraph = None):
         self.graph = graph
 
     def get_graph(self) -> GraphInterface:
@@ -34,7 +34,7 @@ class GraphAlgo(GraphAlgoInterface, ABC):
             node_temp: Node
             nodes_dict = {}
             str_pos = node_temp.geolocation.__str__()
-            str_pos = str_pos.replace(" ","")
+            str_pos = str_pos.replace(" ", "")
             str_pos = str_pos.replace("(", "")
             str_pos = str_pos.replace(")", "")
             nodes_dict["pos"] = str_pos
@@ -58,7 +58,22 @@ class GraphAlgo(GraphAlgoInterface, ABC):
             return False
 
     def shortest_path(self, id1: int, id2: int) -> (float, list):
-        pass
+        list_of_path = []
+        g_algo = GraphAlgo(self.graph)
+        dijkstra_result = MinHeapDijkstra.DijkstraUsingMinHeap.Graph(g_algo)
+        try:
+            dijkstra_result.dijkstra_GetMinDistances(id1)
+            if(dijkstra_result.heap_nodes[id2] == sys.maxsize):
+                raise Exception()
+            index = id2
+            while(index != id1):
+                list_of_path.insert(0, index)
+                index = dijkstra_result.parents[index]
+            list_of_path.insert(0, id1)
+            ans = (dijkstra_result.heap_nodes[id2],list_of_path)
+            return ans
+        except:
+            return ("inf", [])
 
     def TSP(self, node_lst: List[int]) -> (List[int], float):
         super().TSP(node_lst)
@@ -75,5 +90,6 @@ class GraphAlgo(GraphAlgoInterface, ABC):
                 index = i
         ans = (index, min_max_value)
         return ans
+
     def plot_graph(self) -> None:
         pass
