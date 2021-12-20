@@ -55,12 +55,13 @@ class TestGraphAlgo(TestCase):
             if(g1.max<max1):
                 max1 = g1.max
                 index = i
-        print (index)
+        print(index)
         print(max1)
     def test_tsp(self):
         self.fail()
     def test_center_point(self):
-        self.fail()
-
+        g2 = DiGraph("../data/1000Nodes.json")
+        g_algo=GraphAlgo(g2)
+        print(g_algo.centerPoint())
     def test_plot_graph(self):
         self.fail()

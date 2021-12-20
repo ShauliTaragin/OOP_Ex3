@@ -1,8 +1,10 @@
 import _json
 import json
+import sys
 from abc import ABC
 from typing import List
 
+import MinHeapDijkstra
 from DiGraph import DiGraph
 from GraphAlgoInterface import GraphAlgoInterface
 from Node import Node
@@ -62,7 +64,16 @@ class GraphAlgo(GraphAlgoInterface, ABC):
         super().TSP(node_lst)
 
     def centerPoint(self) -> (int, float):
-        super().centerPoint()
-
+        min_max_value = sys.maxsize
+        index = 0
+        g_algo = GraphAlgo(self.graph)
+        g1 = MinHeapDijkstra.DijkstraUsingMinHeap.Graph(g_algo)
+        for i in self.graph.nodes.keys():
+            g1.dijkstra_GetMinDistances(i)
+            if (g1.max < min_max_value):
+                min_max_value = g1.max
+                index = i
+        ans = (index, min_max_value)
+        return ans
     def plot_graph(self) -> None:
         pass
