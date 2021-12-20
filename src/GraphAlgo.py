@@ -5,6 +5,7 @@ import _json
 import json
 import sys
 from abc import ABC
+from math import inf
 from queue import Queue
 from typing import List
 
@@ -78,7 +79,7 @@ class GraphAlgo(GraphAlgoInterface):
             ans = (dijkstra_result.heap_nodes[id2], list_of_path)
             return ans
         except:
-            return "inf", []
+            return inf, []
 
     def TSP(self, node_lst: List[int]) -> (List[int], float):
         actual_nodes_lst = []
@@ -109,7 +110,7 @@ class GraphAlgo(GraphAlgoInterface):
                             b = self.shortest_path(src, holdCities[i].key)
                             ans = b[0]  # might be mistake here
                         dist = ans
-                        if (dist != 'inf'):
+                        if (dist != inf):
                             if dist < minDist:
                                 minDist = dist
                                 currentdest = holdCities[i].key
@@ -152,7 +153,7 @@ class GraphAlgo(GraphAlgoInterface):
             ans = (index, min_max_value)
             return ans
         except:
-            return -1, "inf"
+            return (-1, inf)
 
     def plot_graph(self) -> None:
         pass
