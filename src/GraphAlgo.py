@@ -94,7 +94,7 @@ class GraphAlgo(GraphAlgoInterface):
                 current = 0
                 path = []
                 srcI = j
-                destI, currentdest = 0, 0
+                destI , currentdest = 0, 0
                 src = actual_nodes_lst[srcI].key
                 holdCities.pop(srcI)
                 path.append(self.graph.nodes[src].key)
@@ -104,13 +104,12 @@ class GraphAlgo(GraphAlgoInterface):
                     for i in range(len(holdCities)):
                         a: Node
                         a = self.graph.nodes[src]
-                        if a.outEdges.get(holdCities[i].key) is not None:  # might be mistake here
-                            ans = a.outEdges.get(holdCities[i].key)
-                        else:
+                        ans=0
+                        if(holdCities[i].key not in path):
                             b = self.shortest_path(src, holdCities[i].key)
                             ans = b[0]  # might be mistake here
                         dist = ans
-                        if(dist != 'inf'):
+                        if (dist != 'inf'):
                             if dist < minDist:
                                 minDist = dist
                                 currentdest = holdCities[i].key
@@ -157,8 +156,9 @@ class GraphAlgo(GraphAlgoInterface):
 
     def plot_graph(self) -> None:
         pass
-    def is_connected(self) ->bool:
-        if(not self.bfs(self.graph)):
+
+    def is_connected(self) -> bool:
+        if (not self.bfs(self.graph)):
             return False
         try:
             reversed_graph: DiGraph = self.reverse(self.graph)
@@ -168,7 +168,7 @@ class GraphAlgo(GraphAlgoInterface):
         except:
             return False
 
-    def bfs(self,graph: DiGraph) -> bool:
+    def bfs(self, graph: DiGraph) -> bool:
         flag = True
         for node in graph.nodes:  # first lets set tag of all nodes to 0 e.g not visited
             graph.nodes.get(node).tag = 0
@@ -194,7 +194,7 @@ class GraphAlgo(GraphAlgoInterface):
                 return False
         return True
 
-    def reverse(self,graph: DiGraph) -> DiGraph:
+    def reverse(self, graph: DiGraph) -> DiGraph:
         reversed_graph: DiGraph = DiGraph()
         for connected_key in graph.nodes.keys():  # //traverse through each node
             if not connected_key in reversed_graph.nodes:  # //only if graph dosent already have the node then add it
@@ -210,7 +210,7 @@ class GraphAlgo(GraphAlgoInterface):
 
         return reversed_graph
 
-    def findpath(self,nodes: List[Node], graph: DiGraph) -> bool:
+    def findpath(self, nodes: List[Node], graph: DiGraph) -> bool:
         copy_graph = GraphAlgo(copy.deepcopy(graph))
         flag1 = True
         try:
