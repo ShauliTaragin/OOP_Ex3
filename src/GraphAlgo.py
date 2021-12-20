@@ -4,6 +4,7 @@ import sys
 from abc import ABC
 from typing import List
 
+import HelperAlgo
 import MinHeapDijkstra
 from DiGraph import DiGraph
 from GraphAlgoInterface import GraphAlgoInterface
@@ -63,33 +64,97 @@ class GraphAlgo(GraphAlgoInterface, ABC):
         dijkstra_result = MinHeapDijkstra.DijkstraUsingMinHeap.Graph(g_algo)
         try:
             dijkstra_result.dijkstra_GetMinDistances(id1)
-            if(dijkstra_result.heap_nodes[id2] == sys.maxsize):
+            if dijkstra_result.heap_nodes[id2] == sys.maxsize:
                 raise Exception()
             index = id2
-            while(index != id1):
+            while index != id1:
                 list_of_path.insert(0, index)
                 index = dijkstra_result.parents[index]
             list_of_path.insert(0, id1)
-            ans = (dijkstra_result.heap_nodes[id2],list_of_path)
+            ans = (dijkstra_result.heap_nodes[id2], list_of_path)
             return ans
         except:
-            return ("inf", [])
+            return "inf", []
 
     def TSP(self, node_lst: List[int]) -> (List[int], float):
-        super().TSP(node_lst)
+        if not HelperAlgo.findpath(node_lst, self.graph):
+            return None
+        try:
+            bestPath = []
+            minPath = sys.maxsize
+            for j in range(len(node_lst)):
+                holdCities = node_lst
+                current = 0
+                path = []
+                srcI = j
+                destI, currentdest = 0
+                src = node_lst[srcI].key
+                holdCities.pop(srcI)
+                path.append(self.graph.nodes[src].key)
+                ans: float
+                while holdCities:
+                    minDist = sys.maxsize
+                    for i in range(len(holdCities)):
+                        a: Node
+                        a = self.graph.nodes[src]
+                        if a.inEdges.get(holdCities[i].key) is not None:  # might be mistake here
+                            ans = a.inEdges.get(holdCities[i].key).weight
+                        else:
+                            b = self.shortest_path(src, holdCities[i].key)
+                            ans = b[0]  # might be mistake here
+                        dist = ans
+                        if dist < minDist:
+                            minDist = dist
+                            currentdest = holdCities[i].key
+                            destI = i
+                    current += minDist
+                    tempPath = self.shortest_path(src, currentdest)[
+                        1]  # mistake here , notice shortest path return list of int
+                    if tempPath is None:
+                        return None
+                    flag_first = True
+                    for n in tempPath:
+                        if flag_first:
+                            flag_first = False
+                        else:
+                            path.append(n)
+                    holdCities.pop(destI)
+                    src = currentdest
+                if current < minPath:
+                    minPath = current
+                    bestPath = path
+
+            return bestPath
+        except:
+            return None
 
     def centerPoint(self) -> (int, float):
         min_max_value = sys.maxsize
         index = 0
         g_algo = GraphAlgo(self.graph)
         g1 = MinHeapDijkstra.DijkstraUsingMinHeap.Graph(g_algo)
-        for i in self.graph.nodes.keys():
-            g1.dijkstra_GetMinDistances(i)
-            if (g1.max < min_max_value):
-                min_max_value = g1.max
-                index = i
-        ans = (index, min_max_value)
-        return ans
+        try:
+            for i in self.graph.nodes.keys():
+                g1.dijkstra_GetMinDistances(i)
+                if g1.max == sys.maxsize:
+                    raise Exception()
+                if g1.max < min_max_value:
+                    min_max_value = g1.max
+                    index = i
+            ans = (index, min_max_value)
+            return ans
+        except:
+            return -1, "inf"
 
     def plot_graph(self) -> None:
         pass
+    def is_connected(self) ->bool:
+        if(not HelperAlgo.bfs(self.graph)):
+            return False
+        try:
+            reversed_graph: DiGraph = HelperAlgo.reverse(self.graph)
+            if not HelperAlgo.bfs(reversed_graph):
+                return False
+            return True
+        except:
+            return False
