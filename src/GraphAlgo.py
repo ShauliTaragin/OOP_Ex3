@@ -51,7 +51,7 @@ class GraphAlgo(GraphAlgoInterface):
                 w = node_temp.outEdges.get(j)
                 edge_dict["src"] = i
                 edge_dict["w"] = w
-                edge_dict["dst"] = j
+                edge_dict["dest"] = j
                 EdgesArray.append(edge_dict)
         dictionary["Edges"] = EdgesArray
         dictionary["Nodes"] = NodesArray

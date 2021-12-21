@@ -14,22 +14,16 @@ class TestGraphAlgo(TestCase):
         self.fail()
 
     def test_save_to_json(self):
-        g = DiGraph()  # creates an empty directed graph
-        for n in range(5):
-            g.add_node(n)
-        g.add_edge(0, 1, 1)
-        g.add_edge(0, 4, 5)
-        g.add_edge(1, 0, 1.1)
-        g.add_edge(1, 2, 1.3)
-        g.add_edge(1, 3, 1.9)
-        g.add_edge(2, 3, 1.1)
-        g.add_edge(3, 4, 2.1)
-        g.add_edge(4, 2, .5)
-        g_algo = GraphAlgo(g)
-        g_algo.save_to_json("../data/tester.json")
-        g_algo.graph=None
-        g_algo.load_from_json("../data/tester.json")
-        self.assertEqual("fasf", g_algo.get_graph().get_all_v().__str__())
+        g_algo = GraphAlgo()
+        g_algo.load_from_json("../data/A1.json")
+        g_algo.graph.add_node(17,(35.62364,34.346164,0))
+        g_algo.graph.add_node(14,(32.62364,33.346164,0))
+        g_algo.graph.add_edge(14, 17, 4.1251)
+        self.assertEqual(True, g_algo.save_to_json("../data/b1.json"))
+        self.assertEqual( 17 ,g_algo.graph.nodes.get(17).key)
+        g_algo2 = GraphAlgo()
+        g_algo2.load_from_json("../data/b1.json")
+        self.assertEqual(17 ,g_algo2.graph.nodes.get(17).key)
 
     def test_shortest_path(self):
         g2 = DiGraph("../data/1000Nodes.json")
@@ -58,7 +52,26 @@ class TestGraphAlgo(TestCase):
         print(index)
         print(max1)
     def test_tsp(self):
-        self.fail()
+        g = DiGraph()  # creates an empty directed graph
+        for n in range(5):
+            g.add_node(n)
+        g.add_edge(0, 1, 1)
+        g.add_edge(0, 4, 5)
+        g.add_edge(1, 0, 1.1)
+        g.add_edge(1, 2, 1.3)
+        g.add_edge(1, 3, 1.9)
+        g.add_edge(2, 3, 1.1)
+        g.add_edge(3, 4, 2.1)
+        g.add_edge(4, 2, .5)
+        g_algo = GraphAlgo(g)
+        self.assertEqual(([1, 2, 3, 4], 4.5),g_algo.TSP([1, 2, 4]))
+        g2 = DiGraph("../data/A0.json")
+        g_algo.graph = g2
+        self.assertEqual(([10, 0, 1, 2, 3, 4], 6.914963541041983), g_algo.TSP([1,2,4,10]))
+        g3 = DiGraph("../data/A1.json")
+        g_algo.graph = g3
+        self.assertEqual(([10, 9, 8, 7, 6, 5, 6, 2, 1, 0], 14.947567898812181), g_algo.TSP([0,5,7,9,10]))
+        self.assertIsNone( g_algo.TSP([0,5,7,9,100]))
     def test_center_point(self):
         g2 = DiGraph("../data/G3.json")
         g_algo=GraphAlgo(g2)
