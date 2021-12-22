@@ -8,14 +8,18 @@ class Node:
         self.outEdges = {}
         self.inEdges = {}
 
+    # print the node as we want
     def __repr__(self):
         return "{}: |edges out| {} |edges in| {}".format(self.key, len(self.outEdges), len(self.inEdges))
 
     def __str__(self):
         return "{}: |edges out| {} |edges in| {}".format(self.key, self.outEdges, self.inEdges)
 
+    # add out edge
     def add_out_edge(self, weight: float, dest: int):
         self.outEdges[dest] = weight
         self.outEdges.values()
+
+    # add in edge
     def adding_edge(self, weight: float, src: int):
         self.inEdges[src] = weight
