@@ -243,6 +243,8 @@ class GraphAlgo(GraphAlgoInterface):
         except:
             return False
 
+
+
     def test_py_game_1(self, ):
         pygame.init()
         scr = pygame.display.set_mode((900, 650))
@@ -260,6 +262,7 @@ class GraphAlgo(GraphAlgoInterface):
             lon = scaling[2][0]
             lat = scaling[2][1]
             color = (200, 30, 70)
+            font = pygame.font.SysFont('comicsans', 12)
             for node in self.graph.nodes:
                 for edge in self.graph.all_out_edges_of_node(node):
                     x1 = (self.graph.nodes[node].geolocation[0]-min_x)*(lon) + 60
@@ -267,21 +270,29 @@ class GraphAlgo(GraphAlgoInterface):
                     x2 = (self.graph.nodes[edge].geolocation[0] - min_x) * (lon) + 60
                     y2 = (self.graph.nodes[edge].geolocation[1] - min_y) * (lat) + 60
                     pygame.draw.line(scr, color, (x1, y1), (x2, y2), 2)
-                    self.drawArrowLine(scr, x1, y1, x2, y1, 2, 2)
+            for node in self.graph.nodes:
+                for edge in self.graph.all_out_edges_of_node(node):
+                    x1 = (self.graph.nodes[node].geolocation[0]-min_x)*(lon) + 60
+                    y1 = (self.graph.nodes[node].geolocation[1]-min_y)*(lat) + 60
+                    x2 = (self.graph.nodes[edge].geolocation[0] - min_x) * (lon) + 60
+                    y2 = (self.graph.nodes[edge].geolocation[1] - min_y) * (lat) + 60
+                    self.drawArrowLine(scr, x1, y1, x2, y2, 6, 5)
             for node in self.graph.nodes:
                 x = (self.graph.nodes[node].geolocation[0] - min_x) * (lon) + 60
                 y = (self.graph.nodes[node].geolocation[1] - min_y) * (lat) + 60
                 pygame.draw.circle(scr, (0, 0, 0), (x, y), 4)
-            purple = (102, 0, 102)
+                txt= font.render(str(node) ,1 , (0, 0, 0))
+                scr.blit(txt, (x-8, y-19))
+
             pygame.display.flip()
         pygame.quit()
-        sys.exit()
+
 
     def drawArrowLine(self, scr: pygame.Surface, x1, y1, x2, y2, d, h):
         dx = x2 - x1
         dy = y2 - y1
         D = math.sqrt(dx * dx + dy * dy)
-        xm = D - 4
+        xm = D - 3.5
         xn = xm
         ym = h
         yn = (0 - h)
@@ -301,7 +312,7 @@ class GraphAlgo(GraphAlgoInterface):
         xm1 = D1 - d
         xn1 = xm1
         ym1 = h
-        yn1 = 0-h
+        yn1 = 0 - h
         sin1 = dy1 / D1
         cos1 = dx1 / D1
         nx = xm1 * cos1 - ym1 * sin1 + x1
@@ -311,6 +322,4 @@ class GraphAlgo(GraphAlgoInterface):
         yn1 = xn1 * sin1 + yn1 * cos1 + y1
         xn1 = nx
         points = [(newX2, newY2), (xm1, ym1), (xn1, yn1)]
-        pygame.draw.polygon(scr, (0, 0, 0), points)
-
-
+        pygame.draw.polygon(scr, (200, 30, 70), points)
