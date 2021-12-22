@@ -174,7 +174,7 @@ class DiGraph(GraphInterface):
         return "Graph: |V|={} , |E|={}".format(len(self.nodes), self._numOfEdges)
 
     def set_location(self):
-        dict_min_max = caclulate_minmax(self)[0]
+        dict_min_max = self.caclulate_minmax()[0]
         for i in self.nodes.values():
             if i.geolocation == (0, 0, 0):
                 if (dict_min_max[0] != sys.maxsize and dict_min_max[1] != sys.maxsize
@@ -184,29 +184,29 @@ class DiGraph(GraphInterface):
                 else:
                     i.geolocation = (random.uniform(0, 9), random.uniform(0, 9), 0 )
 
-def caclulate_minmax(graph: DiGraph) -> (tuple, tuple, tuple):
+    def caclulate_minmax(self) -> (tuple, tuple, tuple):
 
-    minx = sys.maxsize
-    miny = sys.maxsize
-    maxx = (0-sys.maxsize)
-    maxy = (0-sys.maxsize)
-    node_iter = graph.get_all_v()
-    for node in node_iter:
-        if(graph.nodes[node].geolocation != (0, 0, 0)):
-            if graph.nodes[node].geolocation[0] < minx:
-                minx = graph.nodes[node].geolocation[0]
-            if graph.nodes[node].geolocation[0] > maxx:
-                maxx = graph.nodes[node].geolocation[0]
-            if graph.nodes[node].geolocation[1] < miny:
-                miny = graph.nodes[node].geolocation[1]
-            if graph.nodes[node].geolocation[1] > maxy:
-                maxy = graph.nodes[node].geolocation[1]
-    if (minx != sys.maxsize and miny != sys.maxsize and maxx != (0-sys.maxsize) and maxy != (0-sys.maxsize)
-            and graph.nodes[node].geolocation != (0, 0, 0)):
-        absx = abs(minx - maxx)
-        absy = abs(miny - maxy)
-        scale_lon = ((800 - 100) / absx)
-        scale_lat = ((800 - 100) / absy)
-        return (minx, miny, maxx, maxx), (absx, absy), (scale_lon, scale_lat)
-    else:
-        return (minx, miny, maxx, maxx), (0, 0), (0, 0)
+        minx = sys.maxsize
+        miny = sys.maxsize
+        maxx = (0-sys.maxsize)
+        maxy = (0-sys.maxsize)
+        node_iter = self.get_all_v()
+        for node in node_iter:
+            if(self.nodes[node].geolocation != (0, 0, 0)):
+                if self.nodes[node].geolocation[0] < minx:
+                    minx = self.nodes[node].geolocation[0]
+                if self.nodes[node].geolocation[0] > maxx:
+                    maxx = self.nodes[node].geolocation[0]
+                if self.nodes[node].geolocation[1] < miny:
+                    miny = self.nodes[node].geolocation[1]
+                if self.nodes[node].geolocation[1] > maxy:
+                    maxy = self.nodes[node].geolocation[1]
+        if (minx != sys.maxsize and miny != sys.maxsize and maxx != (0-sys.maxsize) and maxy != (0-sys.maxsize)
+                and self.nodes[node].geolocation != (0, 0, 0)):
+            absx = abs(minx - maxx)
+            absy = abs(miny - maxy)
+            scale_lon = ((900 - 100) / absx)
+            scale_lat = ((650 - 100) / absy)
+            return (minx, miny, maxx, maxx), (absx, absy), (scale_lon, scale_lat)
+        else:
+            return (minx, miny, maxx, maxx), (0, 0), (0, 0)

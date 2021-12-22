@@ -1,5 +1,6 @@
 import copy
 import json
+import math
 import sys
 
 import pygame
@@ -244,46 +245,72 @@ class GraphAlgo(GraphAlgoInterface):
 
     def test_py_game_1(self, ):
         pygame.init()
-        scr = pygame.display.set_mode((800, 800))
+        scr = pygame.display.set_mode((900, 650))
         running = True
         while running:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     running = False
             scr.fill((255, 255, 255))
-
-            pygame.draw.circle(scr, (200, 0, 0), (250, 250), 80)
-            color = (0, 0, 255)
-            pygame.draw.rect(scr, color, pygame.Rect(60, 60, 100, 100))
-            color = (0, 255, 0)
-            pygame.draw.line(scr, color, (40, 300), (140, 380), 6)
+            scaling = ()
+            self.graph.set_location()
+            scaling = self.graph.caclulate_minmax()
+            min_x = scaling[0][0]
+            min_y = scaling[0][1]
+            lon = scaling[2][0]
+            lat = scaling[2][1]
+            color = (200, 30, 70)
+            for node in self.graph.nodes:
+                for edge in self.graph.all_out_edges_of_node(node):
+                    x1 = (self.graph.nodes[node].geolocation[0]-min_x)*(lon) + 60
+                    y1 = (self.graph.nodes[node].geolocation[1]-min_y)*(lat) + 60
+                    x2 = (self.graph.nodes[edge].geolocation[0] - min_x) * (lon) + 60
+                    y2 = (self.graph.nodes[edge].geolocation[1] - min_y) * (lat) + 60
+                    pygame.draw.line(scr, color, (x1, y1), (x2, y2), 2)
+                    self.drawArrowLine(scr, x1, y1, x2, y1, 2, 2)
+            for node in self.graph.nodes:
+                x = (self.graph.nodes[node].geolocation[0] - min_x) * (lon) + 60
+                y = (self.graph.nodes[node].geolocation[1] - min_y) * (lat) + 60
+                pygame.draw.circle(scr, (0, 0, 0), (x, y), 4)
             purple = (102, 0, 102)
-            pygame.draw.polygon(scr, purple,
-                                ((346, 0), (491, 106), (436, 277), (256, 277), (200, 106)))
             pygame.display.flip()
         pygame.quit()
         sys.exit()
 
-def caclulate_minmax(graph:DiGraph) -> (tuple, tuple, tuple):
+    def drawArrowLine(self, scr: pygame.Surface, x1, y1, x2, y2, d, h):
+        dx = x2 - x1
+        dy = y2 - y1
+        D = math.sqrt(dx * dx + dy * dy)
+        xm = D - 4
+        xn = xm
+        ym = h
+        yn = (0 - h)
+        sin = dy / D
+        cos = dx / D
+        x = xm * cos - ym * sin + x1
+        ym = xm * sin + ym * cos + y1
+        xm = x
+        x = xn * cos - yn * sin + x1
+        yn = xn * sin + yn * cos + y1
+        xn = x
+        newX2 = (xm + xn) / 2
+        newY2 = (ym + yn) / 2
+        dx1 = newX2 - x1
+        dy1 = newY2 - y1
+        D1 = math.sqrt(dx1 * dx1 + dy1 * dy1)
+        xm1 = D1 - d
+        xn1 = xm1
+        ym1 = h
+        yn1 = 0-h
+        sin1 = dy1 / D1
+        cos1 = dx1 / D1
+        nx = xm1 * cos1 - ym1 * sin1 + x1
+        ym1 = xm1 * sin1 + ym1 * cos1 + y1
+        xm1 = nx
+        nx = xn1 * cos1 - yn1 * sin1 + x1
+        yn1 = xn1 * sin1 + yn1 * cos1 + y1
+        xn1 = nx
+        points = [(newX2, newY2), (xm1, ym1), (xn1, yn1)]
+        pygame.draw.polygon(scr, (0, 0, 0), points)
 
-    minx = sys.maxsize
-    miny = sys.maxsize
-    maxx = -sys.maxsize
-    maxy = -sys.maxsize
-    node_iter = graph.get_all_v()
-    for node in node_iter:
-        if node.geolocation[0] < minx:
-            minx = node.geolocation[0]
-        if node.geolocation[0] > maxx:
-            maxx = node.geolocation[0]
-        if node.geolocation[1] < miny:
-            miny = node.geolocation[1]
-        if node.geolocation[1] > maxy:
-            maxy = node.geolocation[1]
 
-    absx = abs(minx - maxx)
-    absy = abs(miny - maxy)
-    scale_lon = ((800 - 100) / absx)
-    scale_lat = ((800 - 100) / absy)
-
-    return (minx, miny, maxx, maxx), (absx, absy), (scale_lon, scale_lat)
