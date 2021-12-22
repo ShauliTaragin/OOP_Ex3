@@ -1,9 +1,8 @@
 import copy
 import json
 import sys
-import _json
-import json
-import sys
+
+import pygame
 from abc import ABC
 from math import inf
 from queue import Queue
@@ -95,7 +94,7 @@ class GraphAlgo(GraphAlgoInterface):
                 current = 0
                 path = []
                 srcI = j
-                destI , currentdest = 0, 0
+                destI, currentdest = 0, 0
                 src = actual_nodes_lst[srcI].key
                 holdCities.pop(srcI)
                 path.append(self.graph.nodes[src].key)
@@ -105,8 +104,8 @@ class GraphAlgo(GraphAlgoInterface):
                     for i in range(len(holdCities)):
                         a: Node
                         a = self.graph.nodes[src]
-                        ans=0
-                        if(holdCities[i].key not in path):
+                        ans = 0
+                        if (holdCities[i].key not in path):
                             b = self.shortest_path(src, holdCities[i].key)
                             ans = b[0]  # might be mistake here
                         dist = ans
@@ -156,7 +155,7 @@ class GraphAlgo(GraphAlgoInterface):
             return (-1, inf)
 
     def plot_graph(self) -> None:
-        pass
+        self.test_py_game_1()
 
     def is_connected(self) -> bool:
         if (not self.bfs(self.graph)):
@@ -242,3 +241,49 @@ class GraphAlgo(GraphAlgoInterface):
             return True
         except:
             return False
+
+    def test_py_game_1(self, ):
+        pygame.init()
+        scr = pygame.display.set_mode((800, 800))
+        running = True
+        while running:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    running = False
+            scr.fill((255, 255, 255))
+
+            pygame.draw.circle(scr, (200, 0, 0), (250, 250), 80)
+            color = (0, 0, 255)
+            pygame.draw.rect(scr, color, pygame.Rect(60, 60, 100, 100))
+            color = (0, 255, 0)
+            pygame.draw.line(scr, color, (40, 300), (140, 380), 6)
+            purple = (102, 0, 102)
+            pygame.draw.polygon(scr, purple,
+                                ((346, 0), (491, 106), (436, 277), (256, 277), (200, 106)))
+            pygame.display.flip()
+        pygame.quit()
+        sys.exit()
+
+def caclulate_minmax(graph:DiGraph) -> (tuple, tuple, tuple):
+
+    minx = sys.maxsize
+    miny = sys.maxsize
+    maxx = -sys.maxsize
+    maxy = -sys.maxsize
+    node_iter = graph.get_all_v()
+    for node in node_iter:
+        if node.geolocation[0] < minx:
+            minx = node.geolocation[0]
+        if node.geolocation[0] > maxx:
+            maxx = node.geolocation[0]
+        if node.geolocation[1] < miny:
+            miny = node.geolocation[1]
+        if node.geolocation[1] > maxy:
+            maxy = node.geolocation[1]
+
+    absx = abs(minx - maxx)
+    absy = abs(miny - maxy)
+    scale_lon = ((800 - 100) / absx)
+    scale_lat = ((800 - 100) / absy)
+
+    return (minx, miny, maxx, maxx), (absx, absy), (scale_lon, scale_lat)

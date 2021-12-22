@@ -1,3 +1,4 @@
+import GraphAlgo
 from GraphInterface import GraphInterface
 from Node import Node
 import json
@@ -28,6 +29,9 @@ class DiGraph(GraphInterface):
                 weight = edgeIter['w']
                 dest = edgeIter['dest']
                 self.add_edge(src, dest, weight)
+            dict_min_max=GraphAlgo.caclulate_minmax(self)[0]
+            for i in
+
 
     def v_size(self) -> int:
         return len(self.nodes)
