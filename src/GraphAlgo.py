@@ -31,6 +31,12 @@ class GraphAlgo(GraphAlgoInterface):
         else:
             return False
 
+    """
+    We save to json using the json.dump method
+    in order to reach the correct format inorder to dump to json we create a dict which holds 2 keys
+    those 2 keys hold lists of nodes and edges which hold dict's of nodes and edges. We add to those
+    dict's by iterating over the nodes and edges of the graph and add them"""
+
     def save_to_json(self, file_name: str) -> bool:
         NodesArray = []
         EdgesArray = []
@@ -63,6 +69,9 @@ class GraphAlgo(GraphAlgoInterface):
         except:
             return False
 
+    """
+    """
+
     def shortest_path(self, id1: int, id2: int) -> (float, list):
         list_of_path = []
         g_algo = GraphAlgo(self.graph)
@@ -83,13 +92,17 @@ class GraphAlgo(GraphAlgoInterface):
 
     def TSP(self, node_lst: List[int]) -> (List[int], float):
         actual_nodes_lst = []
+        # we want to work with a list of nodes rather then a list of the id's of nodes
         for i in node_lst:
             actual_nodes_lst.append(self.graph.nodes.get(i))
+        # first we search by a helper function if we even have a path between our node_lst if not we obviously return none
         if not self.findpath(actual_nodes_lst, self.graph):
             return None
         try:
             bestPath = []
             minPath = sys.maxsize
+            # we will iterate over our node_lst and greedily search whats the best path to take from that node for which
+            # we are iterating over ot reach all nodes in out nodes_lst.
             for j in range(len(actual_nodes_lst)):
                 holdCities = actual_nodes_lst.copy()
                 current = 0
@@ -106,10 +119,12 @@ class GraphAlgo(GraphAlgoInterface):
                         a: Node
                         a = self.graph.nodes[src]
                         ans = 0
-                        if (holdCities[i].key not in path):
+                        # if the node we are searching for a path to from our src node is not in the path already we fint the shortest path to it
+                        if holdCities[i].key not in path:
                             b = self.shortest_path(src, holdCities[i].key)
-                            ans = b[0]  # might be mistake here
+                            ans = b[0]
                         dist = ans
+                        # if we found a shorter distance we update that distance and the nodes we traveled to be the minimum
                         if (dist != inf):
                             if dist < minDist:
                                 minDist = dist
@@ -118,10 +133,9 @@ class GraphAlgo(GraphAlgoInterface):
                         else:
                             break
                     current += minDist
-                    tempPath = self.shortest_path(src, currentdest)[1]  # mistake here , notice shortest path return
-                    # list of int
+                    tempPath = self.shortest_path(src, currentdest)[1]
                     if tempPath is None:
-                        return None
+                        return None  # because this means we couldn't find a path connecting all our nodes
                     flag_first = True
                     for n in tempPath:
                         if flag_first:
@@ -190,7 +204,7 @@ class GraphAlgo(GraphAlgoInterface):
                 if current_neighbor_node.tag == 0:
                     current_neighbor_node.tag = 1
                     queue.put(neighbor_key)
-        for node in graph.nodes:  # // if we find for some node that its tag is 0 e.g hasn't been visited then return false.
+        for node in graph.nodes:  # if we find for some node that its tag is 0 e.g hasn't been visited then return false.
             if (graph.nodes.get(node).tag == 0):
                 return False
         return True
@@ -211,8 +225,14 @@ class GraphAlgo(GraphAlgoInterface):
 
         return reversed_graph
 
+    """
+    @:param nodes -> a list of the tsp nodes we wish to find the shortest path to that visits all of them
+    @:param graph ->the graph we are working on 
+    @:return bool -> True if there is a path in the graph between all nodes and False otherwise 
+    """
+
     def findpath(self, nodes: List[Node], graph: DiGraph) -> bool:
-        copy_graph = GraphAlgo(copy.deepcopy(graph))
+        copy_graph = GraphAlgo(copy.deepcopy(graph))  # creating a copy of our graph so we dont change the orignal one
         flag1 = True
         try:
             keys = []
@@ -223,11 +243,14 @@ class GraphAlgo(GraphAlgoInterface):
             for nodeiter2 in copy_graph.graph.nodes:
                 if not flag1:
                     break
+                # greedily search find the node we start from
                 if copy_graph.graph.nodes[nodeiter2] in nodes:
                     src_node_key = nodeiter2
                     src_node = True
                 flag1 = False
             if src_node:
+                # running the is connected method in order to a check if the graph is connected and b to change the
+                # tags on the node according to the dfs traversal through the graph
                 copy_graph.is_connected()
                 flag1 = True
                 for i in keys:
@@ -242,8 +265,6 @@ class GraphAlgo(GraphAlgoInterface):
             return True
         except:
             return False
-
-
 
     def test_py_game_1(self, ):
         pygame.init()
@@ -262,31 +283,30 @@ class GraphAlgo(GraphAlgoInterface):
             lon = scaling[2][0]
             lat = scaling[2][1]
             color = (200, 30, 70)
-            font = pygame.font.SysFont('comicsans', 12)
+            font = pygame.font.SysFont('Times ', 12)
             for node in self.graph.nodes:
                 for edge in self.graph.all_out_edges_of_node(node):
-                    x1 = (self.graph.nodes[node].geolocation[0]-min_x)*(lon) + 60
-                    y1 = (self.graph.nodes[node].geolocation[1]-min_y)*(lat) + 60
+                    x1 = (self.graph.nodes[node].geolocation[0] - min_x) * (lon) + 60
+                    y1 = (self.graph.nodes[node].geolocation[1] - min_y) * (lat) + 60
                     x2 = (self.graph.nodes[edge].geolocation[0] - min_x) * (lon) + 60
                     y2 = (self.graph.nodes[edge].geolocation[1] - min_y) * (lat) + 60
                     pygame.draw.line(scr, color, (x1, y1), (x2, y2), 2)
             for node in self.graph.nodes:
                 for edge in self.graph.all_out_edges_of_node(node):
-                    x1 = (self.graph.nodes[node].geolocation[0]-min_x)*(lon) + 60
-                    y1 = (self.graph.nodes[node].geolocation[1]-min_y)*(lat) + 60
+                    x1 = (self.graph.nodes[node].geolocation[0] - min_x) * (lon) + 60
+                    y1 = (self.graph.nodes[node].geolocation[1] - min_y) * (lat) + 60
                     x2 = (self.graph.nodes[edge].geolocation[0] - min_x) * (lon) + 60
-                    y2 = (self.graph.nodes[edge].geolocation[1] - min_y) * (lat) + 60
+                    y2 = (self.graph.nodes[edge].geolocation[1] - min_y) * lat + 60
                     self.drawArrowLine(scr, x1, y1, x2, y2, 6, 5)
             for node in self.graph.nodes:
                 x = (self.graph.nodes[node].geolocation[0] - min_x) * (lon) + 60
                 y = (self.graph.nodes[node].geolocation[1] - min_y) * (lat) + 60
                 pygame.draw.circle(scr, (0, 0, 0), (x, y), 4)
-                txt= font.render(str(node) ,1 , (0, 0, 0))
-                scr.blit(txt, (x-8, y-19))
+                txt = font.render(str(node), 1, (0, 150, 255))
+                scr.blit(txt, (x - 8, y - 19))
 
             pygame.display.flip()
         pygame.quit()
-
 
     def drawArrowLine(self, scr: pygame.Surface, x1, y1, x2, y2, d, h):
         dx = x2 - x1
