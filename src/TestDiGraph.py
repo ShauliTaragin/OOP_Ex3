@@ -8,22 +8,25 @@ class TestDiGraph(TestCase):
     def test_v_size(self):
         graph = DiGraph("../data/A0.json")
         graph1 = DiGraph("../data/A1.json")
-        self.assertEqual(11,graph.v_size())
-        self.assertEqual(17,graph1.v_size())
+        self.assertEqual(11, graph.v_size())
+        self.assertEqual(17, graph1.v_size())
 
     def test_e_size(self):
         graph = DiGraph("../data/A0.json")
         graph1 = DiGraph("../data/A1.json")
-        self.assertEqual(22,graph.e_size())
-        self.assertEqual(36,graph1.e_size())
+        self.assertEqual(22, graph.e_size())
+        self.assertEqual(36, graph1.e_size())
 
     def test_get_all_v(self):
-        string_dict="{0: 0: |edges out| 2 |edges in| 2, 1: 1: |edges out| 2 |edges in| 2, 2: 2:" \
-            " |edges out| 2 |edges in| 2, 3: 3: |edges out| 2 |edges in| 2, 4: 4: |edges out| 2 |edges in| 2," \
-            " 5: 5: |edges out| 2 |edges in| 2, 6: 6: |edges out| 2 |edges in| 2, 7: 7: |edges out| 2 |edges in| 2, " \
-            "8: 8: |edges out| 2 |edges in| 2, 9: 9: |edges out| 2 |edges in| 2, 10: 10: |edges out| 2 |edges in| 2}"
+        string_dict = "{0: 0: |edges out| 2 |edges in| 2, 1: 1: |edges out| 2 |edges in| 2, 2: 2:" \
+                      " |edges out| 2 |edges in| 2, 3: 3: |edges out| 2 |edges in| 2," \
+                      " 4: 4: |edges out| 2 |edges in| 2, 5: 5: |edges out| 2 |edges in| 2," \
+                      " 6: 6: |edges out| 2 |edges in| 2, 7: 7: |edges out| 2 |edges in| 2, " \
+                      "8: 8: |edges out| 2 |edges in| 2, 9: 9: |edges out| 2 |edges in| 2, " \
+                      "10: 10: |edges out| 2 |edges in| 2}"
         graph = DiGraph("../data/A0.json")
-        self.assertEqual(string_dict,graph.get_all_v().__str__())
+        self.assertEqual(string_dict, graph.get_all_v().__str__())
+
     def test_all_in_edges_of_node(self):
         g = DiGraph()
         for n in range(4):
@@ -36,7 +39,8 @@ class TestDiGraph(TestCase):
         g.remove_edge(1, 3)
         g.add_edge(1, 3, 12)
         in_edges = {2: 1.1, 1: 12}
-        self.assertEqual(in_edges,g.all_in_edges_of_node(3))
+        self.assertEqual(in_edges, g.all_in_edges_of_node(3))
+
     def test_all_out_edges_of_node(self):
         g = DiGraph()
         for n in range(4):
@@ -62,7 +66,8 @@ class TestDiGraph(TestCase):
         g.add_edge(1, 3, 12)
         self.assertEqual(10, g.get_mc())
         g.remove_node(0)
-        self.assertEqual(13,g.get_mc())
+        self.assertEqual(13, g.get_mc())
+
     def test_add_edge(self):
         g = DiGraph()
         for n in range(4):
@@ -76,8 +81,8 @@ class TestDiGraph(TestCase):
         g.add_edge(0, 3, 20)
         out_edges = {1: 1, 3: 20}
         self.assertEqual(out_edges, g.all_out_edges_of_node(0))
-        in_edges= {2: 1.1, 1: 12, 0: 20}
-        self.assertEqual(in_edges,g.all_in_edges_of_node(3))
+        in_edges = {2: 1.1, 1: 12, 0: 20}
+        self.assertEqual(in_edges, g.all_in_edges_of_node(3))
 
     def test_add_node(self):
         graph = DiGraph("../data/A0.json")

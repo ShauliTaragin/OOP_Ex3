@@ -20,15 +20,15 @@ class DiGraph(GraphInterface):
             edges_json = json_object['Edges']
             nodes_json = json_object['Nodes']
             # first iterate over the Nodes and add them
-            for nodeIter in nodes_json:
-                if 'pos' in nodeIter:
-                    location = str(nodeIter['pos']).split(',')
+            for node_iter in nodes_json:
+                if 'pos' in node_iter:
+                    location = str(node_iter['pos']).split(',')
                     pos_tuple = (float(location[0]), float(location[1]), float(location[2]))
-                    self.add_node(nodeIter['id'], pos_tuple)
+                    self.add_node(node_iter['id'], pos_tuple)
                 # if there is no pos to the node then make the location as (0, 0, 0)
                 else:
                     pos_tuple = (0, 0, 0)
-                    self.add_node(nodeIter['id'], pos_tuple)
+                    self.add_node(node_iter['id'], pos_tuple)
             # iterate over the edges and add them
             for edgeIter in edges_json:
                 src = edgeIter['src']

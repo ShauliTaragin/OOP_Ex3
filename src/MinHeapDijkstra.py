@@ -16,7 +16,7 @@ class DijkstraUsingMinHeap:
             self.heap_nodes = []
             self.extracted = []
 
-        def dijkstra_GetMinDistances(self, source_vertex: int, dest: int = None):
+        def dijkstra_Getmin_distances(self, source_vertex: int, dest: int = None):
             self.max = 0
             INFINITY = sys.maxsize
             index1 = 0
@@ -47,18 +47,18 @@ class DijkstraUsingMinHeap:
                 # iterate through all the adjacent vertices
                 dict_temp = self.graph.all_out_edges_of_node(extractedNodeKey)
                 for edges in dict_temp.keys():
-                    destination = edges
-                    weight_of_node = dict_temp.get(destination)
-                    # only if destination vertex is not present in SPT
-                    if self.extracted[destination] == False:
+                    dest_ination = edges
+                    weight_of_node = dict_temp.get(dest_ination)
+                    # only if dest_ination vertex is not present in SPT
+                    if self.extracted[dest_ination] == False:
                         newDest = self.heap_nodes[extractedNodeKey] + weight_of_node
-                        currentDest = self.heap_nodes[destination]
-                        # if the currentDest is bigger then the newDest, update the min dist and update the parent
-                        if currentDest > newDest:
-                            self.decreaseKey(minHeap, newDest, destination)
-                            self.heap_nodes[destination] = newDest
-                            # switch the previous parent of the destination
-                            self.parents[destination] = extractedNodeKey
+                        current_dest = self.heap_nodes[dest_ination]
+                        # if the current_dest is bigger then the newDest, update the min dist and update the parent
+                        if current_dest > newDest:
+                            self.decreaseKey(minHeap, newDest, dest_ination)
+                            self.heap_nodes[dest_ination] = newDest
+                            # switch the previous parent of the dest_ination
+                            self.parents[dest_ination] = extractedNodeKey
                 # the last Node to be extracted is the one with the biggest weight
             self.max = minHeap.node_holder1[0].weight
 

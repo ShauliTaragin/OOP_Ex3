@@ -31,8 +31,6 @@ def check0():
     :return:
     """
     g = DiGraph()  # creates an empty directed graph
-    # f = open('data/A0.json')
-    g2 = DiGraph("../data/A0.json")
     for n in range(4):
         g.add_node(n)
     g.add_edge(0, 1, 1)
@@ -48,7 +46,7 @@ def check0():
     print(g.all_out_edges_of_node(1))
     g_algo = GraphAlgo(g)
     print(g_algo.shortest_path(0, 3))
-    # g_algo.plot_graph()
+    g_algo.plot_graph()
 
 
 def check1():
@@ -63,7 +61,7 @@ def check1():
     print(g_algo.shortest_path(3, 1))
     print(g_algo.centerPoint())
     # g_algo.save_to_json(file + '_saved')
-    # g_algo.plot_graph()
+    g_algo.plot_graph()
 
 
 def check2():
@@ -105,7 +103,7 @@ def check3():
     g_algo = GraphAlgo(g)
     print(g_algo.centerPoint())
     print(g_algo.TSP([1, 2, 4]))
-    # g_algo.plot_graph()
+    g_algo.plot_graph()
 
 
 if __name__ == '__main__':
