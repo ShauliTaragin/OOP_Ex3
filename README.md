@@ -40,17 +40,21 @@ As opposed to Task 2 this task is written in python
 
 Upon planning are project we would like to focus on 3 fields for which we wish to plan elaborately before we begin implementing code.
 <li> Planning the main classes:</li>
-We will implement a class for each interface. Our node , edge, geoLocation and DirectedWeightedGraph classes will hold all the function it implements from the interface as well as variables which we will elaborate on in the next paragraph.
-We will also implement an algorithm class which implements DirectedWeightedGraphAlgorithms. In that class we will also create our main algorithm.
+We will implement a class for each interface. Our GraphAlgo and DiGraph classes will hold all the functions it implements from the interface as well as other functions which we will elaborate on in the next paragraph.
+We will also implement a Node class which implements A basic node class. In the GraphAlgo class we will also create our main algorithms.
 <li> Planning the method of implementation:</li>
-We will create HashMap that every key is the Node Id and the value is the NodeData Object.
-Every NodeData will contain two HashMaps:1. HashMap of the edges that the current node is their source, the key of the HashMap will be the Id of the destination node and the value will be the Edge.
-2. HashMap of the Edges that the current node is their destination.
+We will create a dictionary that every key is the Node Id and the value is the Node Object.
+Every NodeData will contain two dict's :1. A dict of the out edges that the current node is their source, the key of the HashMap will be the Id of the destination node and the value will be the Edge's weight.
+2. A dict of the in Edges that the current node is their destination the key is the src and the weight of the edge.
 The key will be the Id of the source node and the value will be the weight of the edge.
+<li> Planning the dijkstra algorithm:</li>
+We wanted to implement the dijkstra algorithm in the most elegant ,most efficient way possible. Obviously the dijkstra algorithm is needed for calculating the center, shortest path, and tsp methods.
+So we will achieve this by creating an instance of a MinHeapDijkstra. e.g Instead of implemnting dijkstra with a priority queue we will apply the min heap data structure which we will create on the dijkstra algorithm.
 <li> Laying out testing methods :</li>
-We would like to check the next methods:1. Creat graph by adding nodes and edges.
+Beyond testing all the implemented methods from the interface We would like to check the next methods:1. Create graph by adding nodes and edges.
 2. Connect two nodes. 3. Delete node. 4. Delete edge from the graph. 5. Get the correct mode count.
 6. Get the correct size of edges and the correct size of nodes.
+
 
 
 
@@ -75,7 +79,7 @@ In our display of the graph the user must first load A graph from a json file of
 
 The graph is represented in the following manner : 
 
-Nodes are represented by blue circles. Each nodes key is written above it in black.
+Nodes are represented by black circles. Each nodes key is written above it in blue.
 
 Edges are represented by red lines with an arrow at the end showing the direction of the edge.
 
@@ -105,8 +109,8 @@ Pressing on each node will show each node's geolocation. To unshow the location 
 ---------
 
 ## The Algorithm
-***The Directed Weighted Graph Algorithm interface is implemented in MyDWGAlgo class:***
-***The MyDWGAlgo object contains a class member of A graph inorder to activate the algorithms on.***
+***The GraphAlgoInterface interface is implemented in GraphAlgo class:***
+***The GraphAlgo object contains a class member of A graph of type DiGraph inorder to activate the algorithms on.***
 
 We will lay out our graph Theory algorithms and explain how we implemented them:
 
@@ -167,11 +171,14 @@ As you can see our results after analyzing the code,our code is efficient. Besid
   <div align="center">
 
  <code><img height="40" width="40" src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Python-logo-notext.svg/1200px-Python-logo-notext.svg.png"></code> 
+
  <code><img height="40" height="40" src="https://jupyter.org/assets/main-logo.svg"/></code>
 <code><img height="40" width="70" src="https://upload.wikimedia.org/wikipedia/commons/d/d5/UML_logo.svg"/></code>
  <code><img height="40" width="40" src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/PyCharm_Icon.svg/1024px-PyCharm_Icon.svg.png"/></code>
 <code><img height="40" height="40" src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/git/git.png"></code>
 <code><img height="40" height="40" src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/terminal/terminal.png"></code>
+<code><img height="40" height="40" src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Pygame_logo.gif"></code>
+
   </div>
 
 
