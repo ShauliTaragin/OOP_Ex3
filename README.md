@@ -115,25 +115,26 @@ Pressing on each node will show each node's geolocation. To unshow the location 
 We will lay out our graph Theory algorithms and explain how we implemented them:
 
 1. **init**- Initializes the graph from a json file .
-1. **copy**- We create a Deep copy of the graph using our copy function from MyDWG.
-4. **isConnected** -Checks whether the graph is strongly connected.
-   1. We implemented this algorithm by running a bfs on the graph. Then traversing the graph. And then another bfs.
-   2. Then we iterated through all the nodes in the graph if we find that some node has not been visited we know the graph is not connected.
-5. **shortestPathDist**- Calculates the shortest path distance between 2 given nodes.
+2. **load_from_json**- Load from a json file a graph to work our algorithms on .
+3. **save_to_json**- Saves the graph to a json file.
+4. **copy**- We create a Deep copy of the graph using our copy function from MyDWG.
+6. **shortestPathDist**- Calculates the shortest path distance between 2 given nodes.
    1. We implement this algorithm as well as the shortestpath and tsp algorithm in the following manner.
    2. In order to find the shortest path between two nodes we run the dijkstra algorithm using a data structure of Min Heap.Both these methods are implemnted in the DijkstraUsingMinHeap class
    3. Then fitting the algorithm to our data structures that we are using to represent the graph.
-   4. Finally, returning the weight of the shortest path
-6. **shortestPath** - Finds the shortest path (at what edges should we use the path) between 2 given nodes in the graph.
-   1. We run the same methods as 5. However , we hold with arrays the path we took to reach the shortest distance
-   2. We iterate over our arrays and return in a list the path the algorithm traveled.
-6. **Center** - Finds the shortest path (at what edges should we use the path) between 2 given nodes in the graph.   
-7. **TSP**- Computes a relatively short path which visit each node in the cities List.
+   4.    We hold with lists the path we took to reach the shortest distance
+   2. We iterate over our lists and hold in a list the path the algorithm traveled.
+   5. Finally, returning a tuple of a pair of the weight of the shortest path and the list of the path we took.
+8. **Center** - Finds the shortest path (at what edges should we use the path) between 2 given nodes in the graph.   
+9. **TSP**- Computes a relatively short path which visit each node in the cities List.
    1. We run the same methods as 5. With additions that we run each of the cities as a src and find in a greedy way the shortest path to travel through all the cities
    2. In this solution we also hold with arrays the path we took to reach the shortest distance.
-   2. We iterate over our arrays and return in a list the path the algorithm traveled.
-3.   **save**- Saves the graph to a json file.
-3.   **Load**- Loads the graph in to a json file.
+   3. We iterate over our arrays and return in a list the path the algorithm traveled.
+5. **isConnected** - Altough this function is not part of the interface we implemented it inorder to help our other algorithms check whether the graph is strongly connected.
+   1. We implemented this algorithm by running a bfs on the graph. Then traversing the graph. And then another bfs.
+   2. Then we iterated through all the nodes in the graph if we find that some node has not been visited we know the graph is not connected.
+
+
 
 
 
