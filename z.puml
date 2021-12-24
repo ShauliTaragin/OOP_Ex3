@@ -1,0 +1,71 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+
+interface GraphAlgoInterface
+interface GraphInterface
+
+GraphAlgoInterface <|-- GraphAlgo
+GraphInterface <|-- DiGraph
+GraphAlgo o-- Node
+GraphAlgo o-- MinHeapDijkstra
+MinHeapDijkstra o-- minHeap
+
+
+interface GraphAlgoInterface{
+get_graph()
+load_from_json(self, file_name: str)
+save_to_json(self, file_name: str)
+shortest_path(self, id1: int, id2: int)
+TSP(self, node_lst: List[int])
+centerPoint(self) -> (int, float):
+plot_graph(self)
+}
+interface GraphInterface{
+v_size(self) -> int
+e_size(self) -> int
+get_all_v(self) -> dict:
+all_in_edges_of_node(self, id1: int) -> dict:
+all_out_edges_of_node(self, id1: int) -> dict:
+get_mc(self) -> int:
+add_edge(self, id1: int, id2: int, weight: float) -> bool:
+add_node(self, node_id: int, pos: tuple = None) -> bool:
+remove_node(self, node_id: int) -> bool
+remove_edge(self, node_id1: int, node_id2: int) -> bool
+}
+
+class GraphAlgo {
+get_graph()
+load_from_json(self, file_name: str)
+save_to_json(self, file_name: str)
+shortest_path(self, id1: int, id2: int)
+TSP(self, node_lst: List[int])
+centerPoint(self) -> (int, float):
+plot_graph(self)
+is_connected(self)
+reverse(self, graph: DiGraph) -> DiGraph
+bfs(self, graph: DiGraph) -> bool
+find_path(self, nodes: List[Node], graph: DiGraph) -> bool
+graph:DiGraph
+}
+
+class DiGraph {
+v_size(self) -> int
+e_size(self) -> int
+get_all_v(self) -> dict
+all_in_edges_of_node(self, id1: int) -> dict
+all_out_edges_of_node(self, id1: int) -> dict
+get_mc(self) -> int
+add_edge(self, id1: int, id2: int, weight: float) -> bool
+add_node(self, node_id: int, pos: tuple = None) -> bool
+remove_node(self, node_id: int) -> bool
+remove_edge(self, node_id1: int, node_id2: int) -> bool
+set_location(self)
+caclulate_minmax(self) -> (tuple, tuple, tuple)
+nodes:dict
+_numOfEdges:int
+
+}
+
+
+@enduml

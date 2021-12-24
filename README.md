@@ -117,7 +117,6 @@ We will lay out our graph Theory algorithms and explain how we implemented them:
 1. **init**- Initializes the graph from a json file .
 2. **load_from_json**- Load from a json file a graph to work our algorithms on .
 3. **save_to_json**- Saves the graph to a json file.
-4. **copy**- We create a Deep copy of the graph using our copy function from MyDWG.
 6. **shortestPathDist**- Calculates the shortest path distance between 2 given nodes.
    1. We implement this algorithm as well as the shortestpath and tsp algorithm in the following manner.
    2. In order to find the shortest path between two nodes we run the dijkstra algorithm using a data structure of Min Heap.Both these methods are implemnted in the DijkstraUsingMinHeap class
@@ -142,19 +141,20 @@ We will lay out our graph Theory algorithms and explain how we implemented them:
 <!-- results -->
 ## Results
 
-Our best Results:
+These are our best Results. The computer which ran this program is a MacBook with 16GB ram , Macintosh startup disk , 8-core CPU (4 performance and 4 efficiency)
+:
 
 |Algorithms|Small graph up to 1000 nodes|10000 nodes|100000 nodes|1000000 nodes|
 |---------|---------|---------|---------|---------|
-|**Init**|Very quick|Very quick|Very quick|Not enough ram to create |
-|**Get graph**|Very quick|Very quick|Very quick|Not enough ram to create |
-|**Is connected**|Very quick|Very quick|4 seconds|Not enough ram to create
-|**shortestPathDist**|Very quick|Very quick|Very quick even for far distances|Not enough ram to create
-|**shortestPath**|Very quick|Very quick|Very quick even for far distances|Not enough ram to create
-|**center**|Very quick 1000 takes 1 second|1.2 minutes|Computer not strong enough , would take a few hours|Not enough ram to create
-|**tsp**|Very quick however if we put many nodes in the cities it can take up to a few minutes|Up to a few nodes in the cities Very quick. Up to 40 nodes within a couple of minutes|Up to a few nodes it's able to run.|Not enough ram to create
+|**Get Graph**|10 ms|160 ms|1 second|Not enough ram to create |
+|**load_from_json**|20 ms|160 ms|1.2 seconds|Not enough ram to create |
+|**save_to_json**|70 ms|400 ms|10 seconds|Not enough ram to create
+|**shortestPath**|50 ms|440 ms|10 seconds|Not enough ram to create
+|**center**|8 seconds|18 minutes|Time Out|Not enough ram to create
+|**tsp**|for 30 nodes in node list in 1000 graph - 1 second|for 30 nodes in node list in 1000 graph - 1 second|Time out|Not enough ram to create
 
 
+For our results in java and comparison between java and python results visit our wiki page for this project.
 
 As you can see our results after analyzing the code,our code is efficient. Besides running in good times are tsp algorithm returns a very accurate result.
 
