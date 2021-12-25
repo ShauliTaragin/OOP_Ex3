@@ -1,3 +1,5 @@
+import sys
+
 from DiGraph import DiGraph
 #from GraphAlgo import GraphAlgo
 from GraphAlgo import GraphAlgo
@@ -108,3 +110,4 @@ def check3():
 
 if __name__ == '__main__':
     check()
+    sys.exit()

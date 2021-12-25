@@ -7,9 +7,12 @@ interface GraphInterface
 
 GraphAlgoInterface <|-- GraphAlgo
 GraphInterface <|-- DiGraph
-GraphAlgo o-- Node
+DiGraph o-- Node
 GraphAlgo o-- MinHeapDijkstra
+GraphAlgo o-- DiGraph
 MinHeapDijkstra o-- minHeap
+TestGraphAlgo o-- GraphAlgo
+TestDiGraph o-- DiGraph
 
 
 interface GraphAlgoInterface{
@@ -18,20 +21,20 @@ load_from_json(self, file_name: str)
 save_to_json(self, file_name: str)
 shortest_path(self, id1: int, id2: int)
 TSP(self, node_lst: List[int])
-centerPoint(self) -> (int, float):
+centerPoint(self)
 plot_graph(self)
 }
 interface GraphInterface{
-v_size(self) -> int
-e_size(self) -> int
-get_all_v(self) -> dict:
-all_in_edges_of_node(self, id1: int) -> dict:
-all_out_edges_of_node(self, id1: int) -> dict:
-get_mc(self) -> int:
-add_edge(self, id1: int, id2: int, weight: float) -> bool:
-add_node(self, node_id: int, pos: tuple = None) -> bool:
-remove_node(self, node_id: int) -> bool
-remove_edge(self, node_id1: int, node_id2: int) -> bool
+v_size(self)
+e_size(self)
+get_all_v(self)
+all_in_edges_of_node(self, id1: int)
+all_out_edges_of_node(self, id1: int)
+get_mc(self)
+add_edge(self, id1: int, id2: int, weight: float)
+add_node(self, node_id: int, pos: tuple)
+remove_node(self, node_id: int)
+remove_edge(self, node_id1: int, node_id2: int)
 }
 
 class GraphAlgo {
@@ -40,31 +43,89 @@ load_from_json(self, file_name: str)
 save_to_json(self, file_name: str)
 shortest_path(self, id1: int, id2: int)
 TSP(self, node_lst: List[int])
-centerPoint(self) -> (int, float):
+centerPoint(self)
 plot_graph(self)
 is_connected(self)
-reverse(self, graph: DiGraph) -> DiGraph
-bfs(self, graph: DiGraph) -> bool
-find_path(self, nodes: List[Node], graph: DiGraph) -> bool
+reverse(self, graph: DiGraph)
+bfs(self, graph: DiGraph)
+find_path(self, nodes: List[Node], graph: DiGraph)
 graph:DiGraph
 }
 
 class DiGraph {
-v_size(self) -> int
-e_size(self) -> int
-get_all_v(self) -> dict
-all_in_edges_of_node(self, id1: int) -> dict
-all_out_edges_of_node(self, id1: int) -> dict
-get_mc(self) -> int
-add_edge(self, id1: int, id2: int, weight: float) -> bool
-add_node(self, node_id: int, pos: tuple = None) -> bool
-remove_node(self, node_id: int) -> bool
-remove_edge(self, node_id1: int, node_id2: int) -> bool
+v_size(self)
+e_size(self)
+get_all_v(self)
+all_in_edges_of_node(self, id1: int)
+all_out_edges_of_node(self, id1: int)
+get_mc(self)
+add_edge(self, id1: int, id2: int, weight: float)
+add_node(self, node_id: int, pos: tuple)
+remove_node(self, node_id: int)
+remove_edge(self, node_id1: int, node_id2: int)
 set_location(self)
-caclulate_minmax(self) -> (tuple, tuple, tuple)
+caclulate_minmax(self)
 nodes:dict
 _numOfEdges:int
+_mc:int
+}
 
+class MinHeapDijkstra{
+dijkstra_Getmin_distances(self, source_vertex: int, dest: int)
+decreaseKey(self, minHeap: MinHeap, newKey, vertex: int)
+graph: DiGraph
+max:int
+parents:lst
+heap_nodes:lst
+extracted:lst
+}
+
+class minHeap {
+insert(self, node: Node)
+heapfyUp(self, pos: int)
+extractMin(self)
+sinkDown(self, k: int)
+swap(self, a: int, b: int)
+isEmpty(self)
+heapSize(self)
+index_of_nodes1:lst
+node_holder1:lst
+heap_size:int
+}
+
+class TestGraphAlgo{
+test_get_graph(self)
+test_load_from_json(self)
+test_save_to_json(self)
+test_center_point(self)
+test_shortest_path(self)
+test_tsp(self)
+test_plot_graph(self)
+}
+class DiGraph{
+test_v_size(self)
+test_e_size(self)
+test_get_all_v(self)
+test_all_in_edges_of_node(self)
+test_all_out_edges_of_node(self)
+test_get_mc(self)
+test_add_edge(self)
+test_add_node(self)
+test_remove_node(self)
+test_remove_edge(self)
+}
+
+class Node{
+__repr__(self)
+__str__(self)
+add_out_edge(self, weight: float, dest: int)
+add_in_edge(self, weight: float, src: int)
+key:int
+weight:float
+geolocation:tuple
+tag:int
+outEdges:dict
+inEdges:dict
 }
 
 

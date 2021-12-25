@@ -21,5 +21,5 @@ class Node:
         self.outEdges.values()
 
     # add in edge
-    def adding_edge(self, weight: float, src: int):
+    def add_in_edge(self, weight: float, src: int):
         self.inEdges[src] = weight
