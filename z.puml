@@ -102,7 +102,7 @@ test_shortest_path(self)
 test_tsp(self)
 test_plot_graph(self)
 }
-class DiGraph{
+class TestDiGraph{
 test_v_size(self)
 test_e_size(self)
 test_get_all_v(self)

@@ -1,6 +1,6 @@
 # Task 3 Object-Oriented Programming
 Directed Weighted Graph Algorithms, designing a graph interface in python.
-
+* [Link to our Wiki page](https://github.com/ShauliTaragin/OOP_Ex3/wiki/Comparing-running-times)
 <!-- TABLE OF CONTENTS -->
 <details open="open">
   <summary>Content</summary>
@@ -144,7 +144,7 @@ These are our best Results. The computer which ran this program is a MacBook wit
 |**tsp**|for 30 nodes in node list in 1000 graph - 1.50 minutes|for 30 nodes in node list in 10000 graph - 120 minutes|Time out|Not enough ram to create
 
 
-As you can see our results after analyzing the code,our code is efficient. Besides running in good times are tsp algorithm returns a very accurate result.
+As you can see our results after analyzing the code,our code is efficient. Besides running in good times our tsp algorithm returns a very accurate result.
 
 ---------
 
