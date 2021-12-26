@@ -69,7 +69,7 @@ Beyond testing all the implemented methods from the interface We would like to c
 ## GUI
 #### We will explain about our gui as well as give a short and easy manual of how the user can use it easily.
 
-![Screenshot](images/graph1.png)
+![Screenshot](images/graph_A.png)
 
 | *Our gui representation of the graph A5.json* |
 
@@ -89,7 +89,7 @@ The user can either create a graph by adding nodes and edges e.g. check0 or load
 
 Either way the gui implementation is called from the interface function plot_graph
 
-![Screenshot](images/check3_graph.png)
+![Screenshot](images/graph_check.png)
 | *Our gui representation of check3 graph* |
 
 #### Note : This graph will change everytime we call it. Since there was no geolocatoin inserted for the nodes we randomly inserted proper locations for each node. More information on how we did that can be found in our DiGraph class 
@@ -105,7 +105,7 @@ We will lay out our graph Theory algorithms and explain how we implemented them:
 1. **init**- Initializes the graph from a json file .
 2. **load_from_json**- Load from a json file a graph to work our algorithms on .
 3. **save_to_json**- Saves the graph to a json file.
-6. **shortestPathDist**- Calculates the shortest path distance between 2 given nodes.
+6. **shortestPath**- Calculates the shortest path distance between 2 given nodes.
    1. We implement this algorithm as well as the shortestpath and tsp algorithm in the following manner.
    2. In order to find the shortest path between two nodes we run the dijkstra algorithm using a data structure of Min Heap.Both these methods are implemnted in the DijkstraUsingMinHeap class
    3. Then fitting the algorithm to our data structures that we are using to represent the graph.
