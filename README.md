@@ -1,5 +1,5 @@
 # Task 3 Object-Oriented Programming
-Directed Weighted Graph Algorithm, designing a graph interface in python.
+Directed Weighted Graph Algorithms, designing a graph interface in python.
 
 <!-- TABLE OF CONTENTS -->
 <details open="open">
@@ -9,7 +9,7 @@ Directed Weighted Graph Algorithm, designing a graph interface in python.
     <li><a href="#about-the-project">Plan and design of The Project</a></li>
     <li><a href="#Gui">GUI with pygame</a></li>
     <li><a href="#the-algorithm">The Algorithm</a></li>
-    <li><a href="#results">Results python vs java</a></li>
+    <li><a href="#results">Results</a></li>
     <li><a href="#UML">Uml</a></li>
     <li><a href="#languages-and-tools">Languages and Tools</a></li>
     <li><a href="#acknowledgements">Acknowledgements</a></li>
@@ -69,43 +69,31 @@ Beyond testing all the implemented methods from the interface We would like to c
 ## GUI
 #### We will explain about our gui as well as give a short and easy manual of how the user can use it easily.
 
-![Screenshot](our_graph.png)
+![Screenshot](images/graph1.png)
 
-|*Our gui representation of the graph* |
+| *Our gui representation of the graph A5.json* |
 
-###### Note - The user must first load a graph from the menu or terminal in order to display it 
+
 * About our GUI :
-In our display of the graph the user must first load A graph from a json file of their choice which is located in the data package.
+In our display of the graph the user must create a graph(either load or create) for the GraphAlgo method, and call the plot_graph function.
 
 The graph is represented in the following manner : 
 
-Nodes are represented by black circles. Each nodes key is written above it in blue.
+Nodes are represented by black circles. Each node's key is written above it in blue.
 
 Edges are represented by red lines with an arrow at the end showing the direction of the edge.
 
-Pressing on each node will show each node's geolocation. To unshow the location press clear.</li> 
-* Functions and algorithm within our GUI 
-1. Load: Allows user to load A graph from A json file from our data package.  
-2. Save: Allows user to save A graph into A json file to our data package.
-3. Edit graphs: Allows user to make changes to graph.
-    1. Add Node: Allows user to add a node to the graph by typing in the id(key) of the node and its geolocation. If the node already exits it will rewrite its location. Writing wrong id or wrong cordinance will throw an error.
-    2. Remove Node:Allows user to remove a node from the graph by typing in the id(key) of the node. Writing wrong id  will throw an error.
-    3. Connect: Allows user to connect between 2 nodes an edge(with direction src/dst) in the graph by typing in the id(key) of the source node, id(key) of the destination node  and the weight of the edge. If the edge already exits it will rewrite its weight. Writing wrong id or wrong weight will throw an error.
-    4. Remove edge:Allows user to remove an edge from the graph by typing in the id(key) of the node src and id(key) of the node dest. Writing wrong id's  will throw an error.
-4. Algorithms: Allows user to run and visualize algorithms on the graph .
-   1. Center: Pressing this button will represent on the screen what is the center of the graph. The node which is colored in light blue is the center node of the graph.
-   2. IsConnected:Pressing this button will represent on the screen A message that lets the user know whether the graph is connected.
-   3. TSP: Allows user to insert nodes(by key) into the tsp algorithm. When the user is ready they can press submit, and the screen will show the path taken visiting all the nodes in tsp. First node is marked in orange,final node in pink. The edges which have been visited will become black(including their arrows).
-   4. Shortest Dist: Allows user to insert 2 nodes(by key of src and dest). The screen will show the shortest path possible between the nodes. First node is marked in orange , final node in pink. The edges which have been visited will become black(including their arrows).
-   5. Shortest Dist Path: Allows user to insert 2 nodes(by key of src and dest). The screen will show a message with the shortest path possible between the nodes by the sum of the weights taken.
-5. Exit: Allows the user to exit the program.
+Inorder to run a gui performance for a graph of you're choice, the user must work from the main class.
 
-* Help button refers the user to this user manual in our github repository.
+The user can either create a graph by adding nodes and edges e.g. check0 or load a graph of their choice which is located in the data package.
 
-* Clear button clears the drawings on top of the loaded graph. i.e geolocation , shortestdist, center etc..
+Either way the gui implementation is called from the interface function plot_graph
 
-![Screenshot](graph_after_draw.png)
-| *Our gui representation of the shortest path and some geolocations* |
+![Screenshot](images/check3_graph.png)
+| *Our gui representation of check3 graph* |
+
+#### Note : This graph will change everytime we call it. Since there was no geolocatoin inserted for the nodes we randomly inserted proper locations for each node. More information on how we did that can be found in our DiGraph class 
+
 ---------
 
 ## The Algorithm
@@ -141,6 +129,8 @@ We will lay out our graph Theory algorithms and explain how we implemented them:
 <!-- results -->
 ## Results
 
+#### For our enhanced comparison between java and python results please visit our wiki page for this project.
+
 These are our best Results. The computer which ran this program is a MacBook with 16GB ram , Macintosh startup disk , 8-core CPU (4 performance and 4 efficiency)
 :
 
@@ -150,11 +140,9 @@ These are our best Results. The computer which ran this program is a MacBook wit
 |**load_from_json**|20 ms|160 ms|1.2 seconds|Not enough ram to create |
 |**save_to_json**|70 ms|400 ms|10 seconds|Not enough ram to create
 |**shortestPath**|50 ms|440 ms|10 seconds|Not enough ram to create
-|**center**|8 seconds|18 minutes|Time Out|Not enough ram to create
-|**tsp**|for 30 nodes in node list in 1000 graph - 1 second|for 30 nodes in node list in 1000 graph - 1 second|Time out|Not enough ram to create
+|**center**|7 seconds|16 minutes|Time Out|Not enough ram to create
+|**tsp**|for 30 nodes in node list in 1000 graph - 1.50 minutes|for 30 nodes in node list in 10000 graph - 120 minutes|Time out|Not enough ram to create
 
-
-For our results in java and comparison between java and python results visit our wiki page for this project.
 
 As you can see our results after analyzing the code,our code is efficient. Besides running in good times are tsp algorithm returns a very accurate result.
 
@@ -162,7 +150,7 @@ As you can see our results after analyzing the code,our code is efficient. Besid
 
 ## UML
 
-![Screenshot](OOP_Ex2_uml.png)
+![Screenshot](images/z.png)
 | *Our Unified Modeling Language representation* |
 ---------
 
