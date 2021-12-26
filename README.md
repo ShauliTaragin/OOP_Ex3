@@ -1,6 +1,6 @@
 # Task 3 Object-Oriented Programming
 Directed Weighted Graph Algorithms, designing a graph interface in python.
-* [Link to our Wiki page](https://github.com/ShauliTaragin/OOP_Ex3/wiki/Comparing-running-times)
+* [Link to our Wiki page](https://github.com/ShauliTaragin/OOP_Ex3/wiki)
 <!-- TABLE OF CONTENTS -->
 <details open="open">
   <summary>Content</summary>
