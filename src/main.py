@@ -3,8 +3,6 @@ import sys
 from DiGraph import DiGraph
 #from GraphAlgo import GraphAlgo
 from GraphAlgo import GraphAlgo
-
-
 def check():
     """
     Graph: |V|=4 , |E|=5
@@ -62,7 +60,7 @@ def check1():
     print(g_algo.shortest_path(0, 3))
     print(g_algo.shortest_path(3, 1))
     print(g_algo.centerPoint())
-    # g_algo.save_to_json(file + '_saved')
+    g_algo.save_to_json(file + '_saved')
     g_algo.plot_graph()
 
 

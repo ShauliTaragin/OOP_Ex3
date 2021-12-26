@@ -10,7 +10,7 @@ from src.minHeap import MinHeap
 class DijkstraUsingMinHeap:
     class Graph:
         def __init__(self, Graph_algo: GraphAlgo):
-            self.graph: DiGraph = copy.deepcopy(Graph_algo.graph)
+            self.graph: DiGraph = GraphAlgo(Graph_algo.graph).graph
             self.max = 0
             self.parents = []
             self.heap_nodes = []

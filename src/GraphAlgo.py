@@ -20,6 +20,8 @@ from src.GraphInterface import GraphInterface
 class GraphAlgo(GraphAlgoInterface):
     def __init__(self, graph: DiGraph = None):
         self.graph = graph
+        self.g=None
+        self.initiated=False
 
     def get_graph(self) -> GraphInterface:
         return self.graph
@@ -83,25 +85,27 @@ class GraphAlgo(GraphAlgoInterface):
 
     def shortest_path(self, id1: int, id2: int) -> (float, list):
         list_of_path = []
-        g_algo = GraphAlgo(self.graph)
-        # init the dijkstra class
-        dijkstra_result = MinHeapDijkstra.DijkstraUsingMinHeap.Graph(g_algo)
+        if(not self.initiated):
+            g_algo = GraphAlgo(self.graph)
+            # init the dijkstra class
+            self.g=MinHeapDijkstra.DijkstraUsingMinHeap.Graph(g_algo)
+            self.initiated=True
         try:
             # send the node to the dijkstra function
-            dijkstra_result.dijkstra_Getmin_distances(id1)
+            self.g.dijkstra_Getmin_distances(id1)
             # if there is no path between the two nodes then raise exception
-            if dijkstra_result.heap_nodes[id2] == sys.maxsize:
+            if self.g.heap_nodes[id2] == sys.maxsize:
                 raise Exception()
             index = id2
             # iterate over the parents list till we reach the starting node
             while index != id1:
                 # add the parent to the list
                 list_of_path.insert(0, index)
-                index = dijkstra_result.parents[index]
+                index = self.g.parents[index]
             # insert the starting node to the start of the path 
             list_of_path.insert(0, id1)
             # save the ans as the tuple contains the dist and the path
-            ans = (dijkstra_result.heap_nodes[id2], list_of_path)
+            ans = (self.g.heap_nodes[id2], list_of_path)
             return ans
         except:
             return inf, []
@@ -121,25 +125,25 @@ class GraphAlgo(GraphAlgoInterface):
             # we will iterate over our node_lst and greedily search whats the best path to take from that node for which
             # we are iterating over ot reach all nodes in out nodes_lst.
             for j in range(len(actual_nodes_lst)):
-                hold_cities = actual_nodes_lst.copy()
+                hold_cities = list(actual_nodes_lst)
                 current = 0
                 path = []
                 src_i = j
                 dest_i, current_dest = 0, 0
                 src = actual_nodes_lst[src_i].key
                 hold_cities.pop(src_i)
-                path.append(self.graph.nodes[src].key)
+                path.append(src)
                 ans: float
                 while hold_cities:
                     min_dist = sys.maxsize
                     for i in range(len(hold_cities)):
-                        a: Node
-                        a = self.graph.nodes[src]
+                        a: int
+                        a = hold_cities[i].key
                         ans = 0
                         # if the node we are searching for a path to from our src node is not in the path
                         # already we find the shortest path to it
-                        if hold_cities[i].key not in path:
-                            b = self.shortest_path(src, hold_cities[i].key)
+                        if a not in path:
+                            b = self.shortest_path(src, a)
                             ans = b[0]
                         dist = ans
                         # if we found a shorter distance we update that distance and
@@ -147,7 +151,7 @@ class GraphAlgo(GraphAlgoInterface):
                         if dist != inf:
                             if dist < min_dist:
                                 min_dist = dist
-                                current_dest = hold_cities[i].key
+                                current_dest = a
                                 dest_i = i
                         else:
                             break
