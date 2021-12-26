@@ -1,5 +1,5 @@
 # Task 3 Object-Oriented Programming
-Directed Weighted Graph Algorithm, designing a graph interface in python.
+Directed Weighted Graph Algorithms, designing a graph interface in python.
 
 <!-- TABLE OF CONTENTS -->
 <details open="open">
@@ -9,7 +9,7 @@ Directed Weighted Graph Algorithm, designing a graph interface in python.
     <li><a href="#about-the-project">Plan and design of The Project</a></li>
     <li><a href="#Gui">GUI with pygame</a></li>
     <li><a href="#the-algorithm">The Algorithm</a></li>
-    <li><a href="#results">Results python vs java</a></li>
+    <li><a href="#results">Results</a></li>
     <li><a href="#UML">Uml</a></li>
     <li><a href="#languages-and-tools">Languages and Tools</a></li>
     <li><a href="#acknowledgements">Acknowledgements</a></li>
@@ -71,7 +71,7 @@ Beyond testing all the implemented methods from the interface We would like to c
 
 ![Screenshot](images/graph1.png)
 
-|*Our gui representation of the graph A5.json* |
+| *Our gui representation of the graph A5.json* |
 
 
 * About our GUI :
@@ -90,7 +90,7 @@ The user can either create a graph by adding nodes and edges e.g. check0 or load
 Either way the gui implementation is called from the interface function plot_graph
 
 ![Screenshot](images/check3_graph.png)
-| *Our gui representation of check3 graph. * |
+| *Our gui representation of check3 graph* |
 
 #### Note : This graph will change everytime we call it. Since there was no geolocatoin inserted for the nodes we randomly inserted proper locations for each node. More information on how we did that can be found in our DiGraph class 
 
@@ -129,6 +129,8 @@ We will lay out our graph Theory algorithms and explain how we implemented them:
 <!-- results -->
 ## Results
 
+#### For our enhanced comparison between java and python results please visit our wiki page for this project.
+
 These are our best Results. The computer which ran this program is a MacBook with 16GB ram , Macintosh startup disk , 8-core CPU (4 performance and 4 efficiency)
 :
 
@@ -141,8 +143,6 @@ These are our best Results. The computer which ran this program is a MacBook wit
 |**center**|7 seconds|16 minutes|Time Out|Not enough ram to create
 |**tsp**|for 30 nodes in node list in 1000 graph - 1.50 minutes|for 30 nodes in node list in 10000 graph - 120 minutes|Time out|Not enough ram to create
 
-
-For our results in java and comparison between java and python results visit our wiki page for this project.
 
 As you can see our results after analyzing the code,our code is efficient. Besides running in good times are tsp algorithm returns a very accurate result.
 
