@@ -197,7 +197,7 @@ class GraphAlgo(GraphAlgoInterface):
             ans = (index, min_max_value)
             return ans
         except:
-            return None
+            return None,inf
 
     def plot_graph(self) -> None:
         # call to the 
