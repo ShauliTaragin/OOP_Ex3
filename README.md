@@ -1,13 +1,14 @@
 # Task 3 Object-Oriented Programming
 Directed Weighted Graph Algorithms, designing a graph interface in python.
 * [Link to our Wiki page](https://github.com/ShauliTaragin/OOP_Ex3/wiki)
+* ####Note: inorder to run our program the user must have the pygame library.
 <!-- TABLE OF CONTENTS -->
 <details open="open">
   <summary>Content</summary>
   <ol>
     <li><a href="#about-the-project">About The Project</a></li>
     <li><a href="#about-the-project">Plan and design of The Project</a></li>
-    <li><a href="#Gui">GUI with pygame</a></li>
+    <li><a href="#Gui">GUI with pygame and manual</a></li>
     <li><a href="#the-algorithm">The Algorithm</a></li>
     <li><a href="#results">Results</a></li>
     <li><a href="#UML">Uml</a></li>
